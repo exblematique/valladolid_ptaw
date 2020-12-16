@@ -82,7 +82,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
                 while (mysqli_stmt_fetch($stmt)) {
                     $html_array .= "<tr><td>$name</td><td>$category</td><td>$brand</td><td>$color</td><td>$price</td>"
                         ."<td><input type='number' id='quantity$id' value='1'>"
-                        .'<button class="btn btn-primary" onclick="$.post('."'addCart.php',{id: '$id', quantity: \\\"$('#quantity$id').val()\\\"})\">Añadir a la cesta</button>"
+                        .'<button class="btn btn-primary" onclick="addCart('."'$id')".'">Añadir a la cesta</button>'
                         ."</td></tr>";
                 }
             }
@@ -109,6 +109,13 @@ mysqli_close($link);
         body{ font: 14px sans-serif; }
         .wrapper{padding: 20px; }
     </style>
+    <script>
+        function addCart(id){
+            var q = $("#quantity".id).val();
+            $.post("addCart.php",{id: id, quantity: q});
+        }
+    </script>
+
 </head>
 <body>
 <header>
