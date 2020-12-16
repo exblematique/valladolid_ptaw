@@ -24,52 +24,51 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
 
         // Adding $input 4 times in $inputNotEmpty because of ?
         for ($i = 0; $i < 4; $i++)
-            array_push($itemNotEmpty, $input);
+            array_push($inputNotEmpty, $input);
     }
     // If it a advance search, adding condition only if needed to add
 
     else {
         if (isset($_GET["name"]) and !empty($_GET["name"])) {
             $sql .= " WHERE name REGEXP ?";
-            array_push($itemNotEmpty, $_GET["name"]);
+            array_push($inputNotEmpty, $_GET["name"]);
         }
         if (isset($_GET["category"]) and !empty($_GET["category"])) {
             // This line enables to define only one time the keyword WHERE
-            $sql .= empty($itemNotEmpty) == 0 ? " WHERE" : " AND";
+            $sql .= empty($inputNotEmpty) == 0 ? " WHERE" : " AND";
             $sql .= " category REGEXP ?";
-            array_push($itemNotEmpty, $_GET["category"]);
+            array_push($inputNotEmpty, $_GET["category"]);
         }
         if (isset($_GET["brand"]) and !empty($_GET["brand"])) {
-            $sql .= empty($itemNotEmpty) == 0 ? " WHERE" : " AND";
+            $sql .= empty($inputNotEmpty) == 0 ? " WHERE" : " AND";
             $sql .= " brand REGEXP ?";
-            array_push($itemNotEmpty, $_GET["brand"]);
+            array_push($inputNotEmpty, $_GET["brand"]);
         }
         if (isset($_GET["color"]) and !empty($_GET["color"])) {
-            $sql .= empty($itemNotEmpty) == 0 ? " WHERE" : " AND";
+            $sql .= empty($inputNotEmpty) == 0 ? " WHERE" : " AND";
             $sql .= " color REGEXP ?";
-            array_push($itemNotEmpty, $_GET["color"]);
+            array_push($inputNotEmpty, $_GET["color"]);
         }
     }
 
     if ($stmt = mysqli_prepare($link, $sql)) {
         // Bind variables to the prepared statement as parameters
         // Adaptes bind variables with the nombre of variables
-        if (!empty($itemNotEmpty)) {
-            switch (count($itemNotEmpty)) {
+            switch (count($inputNotEmpty)) {
                 case 1:
-                    mysqli_stmt_bind_param($stmt, "s", $itemNotEmpty[0]);
+                    mysqli_stmt_bind_param($stmt, "s", $inputNotEmpty[0]);
                     break;
                 case 2:
-                    mysqli_stmt_bind_param($stmt, "ss", $itemNotEmpty[0], $itemNotEmpty[1]);
+                    mysqli_stmt_bind_param($stmt, "ss", $inputNotEmpty[0], $inputNotEmpty[1]);
                     break;
                 case 3:
-                    mysqli_stmt_bind_param($stmt, "sss", $itemNotEmpty[0], $itemNotEmpty[1], $itemNotEmpty[2]);
+                    mysqli_stmt_bind_param($stmt, "sss", $inputNotEmpty[0], $inputNotEmpty[1], $inputNotEmpty[2]);
                     break;
                 case 4:
-                    mysqli_stmt_bind_param($stmt, "ssss", $itemNotEmpty[0], $itemNotEmpty[1], $itemNotEmpty[2], $itemNotEmpty[3]);
+                    mysqli_stmt_bind_param($stmt, "ssss", $inputNotEmpty[0], $inputNotEmpty[1], $inputNotEmpty[2], $inputNotEmpty[3]);
                     break;
             }
-        }
+
         // Attempt to execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
             // Store result
