@@ -20,7 +20,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
         // This way enable to check all words in all SQL column
         $sql .= " WHERE name REGEXP ? or category REGEXP ? or brand REGEXP ? or color REGEXP ?";
         // Create a regex sytaxe with "OR"
-        $input = str_replace('\n', '|', $_GET["search"]);
+        $input = str_replace("\n", "|", $_GET["search"]);
 
         // Adding $input 4 times in $inputNotEmpty because of ?
         for ($i = 0; $i < 4; $i++)
