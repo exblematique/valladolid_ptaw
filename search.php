@@ -16,7 +16,7 @@ $inputNotEmpty = array();
 $sql = "SELECT id, name, category, brand, color, price FROM products";
 if($_SERVER["REQUEST_METHOD"] == "GET") {
     // Check if not a advance search
-    if (isset($_GET["search"])) {
+    if (isset($_GET["search"]) and !empty($_GET["search"])) {
         // This way enable to check all words in all SQL column
         $sql .= " WHERE name REGEXP ? or category REGEXP ? or brand REGEXP ? or color REGEXP ?";
         // Create a regex sytaxe with "OR"
@@ -35,17 +35,17 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
         }
         if (isset($_GET["category"]) and !empty($_GET["category"])) {
             // This line enables to define only one time the keyword WHERE
-            $sql .= empty($inputNotEmpty) == 0 ? " WHERE" : " AND";
+            $sql .= empty($inputNotEmpty) ? " WHERE" : " AND";
             $sql .= " category REGEXP ?";
             array_push($inputNotEmpty, $_GET["category"]);
         }
         if (isset($_GET["brand"]) and !empty($_GET["brand"])) {
-            $sql .= empty($inputNotEmpty) == 0 ? " WHERE" : " AND";
+            $sql .= empty($inputNotEmpty) ? " WHERE" : " AND";
             $sql .= " brand REGEXP ?";
             array_push($inputNotEmpty, $_GET["brand"]);
         }
         if (isset($_GET["color"]) and !empty($_GET["color"])) {
-            $sql .= empty($inputNotEmpty) == 0 ? " WHERE" : " AND";
+            $sql .= empty($inputNotEmpty) ? " WHERE" : " AND";
             $sql .= " color REGEXP ?";
             array_push($inputNotEmpty, $_GET["color"]);
         }
