@@ -38,7 +38,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
         mysqli_stmt_store_result($stmt);
 
         // Check if not empty, then create HTML array
-        if (mysqli_stmt_num_rows($stmt) == 1) {
+        if (mysqli_stmt_num_rows($stmt) > 0) {
             // Bind result variables
             mysqli_stmt_bind_result($stmt, $id, $name, $category, $brand, $color, $price);
             $html_array = '';
