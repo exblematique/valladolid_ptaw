@@ -80,7 +80,10 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
                 mysqli_stmt_bind_result($stmt, $id, $name, $category, $brand, $color, $price);
                 $html_array = '';
                 while (mysqli_stmt_fetch($stmt)) {
-                    $html_array .= "<tr><td>$name</td><td>$category</td><td>$brand</td><td>$color</td><td>$price</td></tr>";
+                    $html_array .= '<tr><td>$name</td><td>$category</td><td>$brand</td><td>$color</td><td>$price</td>
+                        <td><input type="number" id="quantity'.$id.'" value="1">
+                        <button class="btn btn-primary" onclick="$.post(\"addCart.php\",{id: \"'.$id.'\", quantity: \"$(\"#quantity'.$id.'\").val()\"})">Añadir a la cesta</button>
+                        </td></tr>';
                 }
             }
         } else
@@ -101,6 +104,7 @@ mysqli_close($link);
     <meta charset="UTF-8">
     <title>Login</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style type="text/css">
         body{ font: 14px sans-serif; }
         .wrapper{padding: 20px; }
