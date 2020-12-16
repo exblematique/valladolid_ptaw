@@ -1,7 +1,7 @@
 <?php
 /* Database credentials. Assuming you are running MySQL
 server with default setting (user 'root' with no password) */
-define('DB_SERVER', 'localhost');
+define('DB_SERVER', 'mysql-valladolid-tpaw.alwaysdata.net');
 define('DB_USERNAME', '221713_project');
 define('DB_PASSWORD', 'B3stP@assW0rd');
 define('DB_NAME', 'valladolid-tpaw_project');
