@@ -43,7 +43,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
             mysqli_stmt_bind_result($stmt, $id, $name, $category, $brand, $color, $price);
             $html_array = '';
             while (mysqli_stmt_fetch($stmt)) {
-                $html_array .= '<tr><td>$name</td><td>$category</td><td>$brand</td><td>$color</td><td>$price</td></tr>';
+                $html_array .= "<tr><td>$name</td><td>$category</td><td>$brand</td><td>$color</td><td>$price</td></tr>";
             }
         } else {
             // Display an error message if username doesn't exist
