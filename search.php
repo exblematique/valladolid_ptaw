@@ -142,6 +142,10 @@ mysqli_close($link);
             <input type="text" name="category" class="form-control">
         </div>
         <div class="form-group">
+            <label>Marca</label>
+            <input type="text" name="brand" class="form-control">
+        </div>
+        <div class="form-group">
             <label>Color</label>
             <input type="text" name="color" class="form-control">
         </div>
