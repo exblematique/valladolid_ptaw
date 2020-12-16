@@ -7,6 +7,9 @@ require_once "config.php";
 
 // Initialize variables
 $id = $name = $category = $brand = $color = $price = "";
+// Contains input values which not null
+// For general search, there are 4 times $_GET["search"] to generalize code
+$inputNotEmpty = array();
 
 // Prepare request SQL
 // Return the demanding list for POST method, else return all value
@@ -19,41 +22,72 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
         // Create a regex sytaxe with "OR"
         $input = str_replace('\n', '|', $_GET["search"]);
 
-        if ($stmt = mysqli_prepare($link, $sql)) {
-            // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ssss", $input, $input, $input, $input);
-        }
+        // Adding $input 4 times in $inputNotEmpty because of ?
+        for ($i = 0; $i < 4; $i++)
+            array_push($itemNotEmpty, $input);
     }
-    // If it a advance search, adding condition only if needed
+    // If it a advance search, adding condition only if needed to add
+
     else {
-        $nbItem = 0;
-        if (isset($_GET["name"]) and !empty($_GET["name"]))
-            $sql .= " ";
+        if (isset($_GET["name"]) and !empty($_GET["name"])) {
+            $sql .= " WHERE name REGEXP ?";
+            array_push($itemNotEmpty, $_GET["name"]);
+        }
+        if (isset($_GET["category"]) and !empty($_GET["category"])) {
+            // This line enables to define only one time the keyword WHERE
+            $sql .= count($itemNotEmpty) == 0 ? " WHERE" : " AND";
+            $sql .= " category REGEXP ?";
+            array_push($itemNotEmpty, $_GET["category"]);
+        }
+        if (isset($_GET["brand"]) and !empty($_GET["brand"])) {
+            $sql .= count($itemNotEmpty) == 0 ? " WHERE" : " AND";
+            $sql .= " brand REGEXP ?";
+            array_push($itemNotEmpty, $_GET["brand"]);
+        }
+        if (isset($_GET["color"]) and !empty($_GET["color"])) {
+            $sql .= count($itemNotEmpty) == 0 ? " WHERE" : " AND";
+            $sql .= " color REGEXP ?";
+            array_push($itemNotEmpty, $_GET["color"]);
+        }
     }
 
-
-    // Attempt to execute the prepared statement
-    if (mysqli_stmt_execute($stmt)) {
-        // Store result
-        mysqli_stmt_store_result($stmt);
-
-        // Check if not empty, then create HTML array
-        if (mysqli_stmt_num_rows($stmt) > 0) {
-            // Bind result variables
-            mysqli_stmt_bind_result($stmt, $id, $name, $category, $brand, $color, $price);
-            $html_array = '';
-            while (mysqli_stmt_fetch($stmt)) {
-                $html_array .= "<tr><td>$name</td><td>$category</td><td>$brand</td><td>$color</td><td>$price</td></tr>";
-            }
-        } else {
-            // Display an error message if username doesn't exist
-            $username_err = "No account found with that username.";
+    if ($stmt = mysqli_prepare($link, $sql)) {
+        // Bind variables to the prepared statement as parameters
+        // Adaptes bind variables with the nombre of variables
+        switch (count($itemNotEmpty)) {
+            case 1:
+                mysqli_stmt_bind_param($stmt, "s", $itemNotEmpty[0]);
+                break;
+            case 2:
+                mysqli_stmt_bind_param($stmt, "ss", $itemNotEmpty[0], $itemNotEmpty[1]);
+                break;
+            case 3:
+                mysqli_stmt_bind_param($stmt, "sss", $itemNotEmpty[0], $itemNotEmpty[1], $itemNotEmpty[2]);
+                break;
+            case 4:
+                mysqli_stmt_bind_param($stmt, "ssss", $itemNotEmpty[0], $itemNotEmpty[1], $itemNotEmpty[2], $itemNotEmpty[3]);
+                break;
         }
-    } else
-        echo "Oops! Something went wrong. Please try again later.";
+        // Attempt to execute the prepared statement
+        if (mysqli_stmt_execute($stmt)) {
+            // Store result
+            mysqli_stmt_store_result($stmt);
 
-    // Close statement
-    mysqli_stmt_close($stmt);
+            // Check if the query have answers, then create HTML array
+            if (mysqli_stmt_num_rows($stmt) > 0) {
+                // Bind result variables
+                mysqli_stmt_bind_result($stmt, $id, $name, $category, $brand, $color, $price);
+                $html_array = '';
+                while (mysqli_stmt_fetch($stmt)) {
+                    $html_array .= "<tr><td>$name</td><td>$category</td><td>$brand</td><td>$color</td><td>$price</td></tr>";
+                }
+            }
+        } else
+            echo "Oops! Something went wrong. Please try again later.";
+
+        // Close statement
+        mysqli_stmt_close($stmt);
+    }
 }
 
 // Close connection
@@ -68,7 +102,7 @@ mysqli_close($link);
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <style type="text/css">
         body{ font: 14px sans-serif; }
-        .wrapper{ width: 350px; padding: 20px; }
+        .wrapper{padding: 20px; }
     </style>
 </head>
 <body>
