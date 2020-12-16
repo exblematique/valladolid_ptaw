@@ -21,7 +21,7 @@ if($_SERVER["REQUEST_METHOD"] == "GET") {
 
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "s", $input, $input, $input, $input);
+            mysqli_stmt_bind_param($stmt, "ssss", $input, $input, $input, $input);
         }
     }
     // If it a advance search, adding condition only if needed
