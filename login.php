@@ -92,7 +92,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Inicio</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <style type="text/css">
         body{ font: 14px sans-serif; }
@@ -103,7 +103,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <header>
     <a class="btn btn-primary" href="index.php">Inicio</a>
     <a class="btn btn-primary" href="search.php">Buscar</a>
-    <a class="btn btn-primary" href="cart.php">Cesta</a>
+    <a class="btn btn-primary" href="addCart.php">Cesta</a>
     <?php // Change the link if user is connected or not
     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){?>
         <a class="btn btn-primary" href="logout.php">Cerrar sesión</a>
@@ -112,8 +112,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <?php } ?>
 </header>
 <div class="wrapper">
-    <h2>Login</h2>
-    <p>Please fill in your credentials to login.</p>
+    <h2>Inicio</h2>
+    <p>Por favor, rellene sus credenciales para entrar.</p>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
         <div class="form-group <?php echo (!empty($mail_err)) ? 'has-error' : ''; ?>">
             <label>Dirección de correo</label>

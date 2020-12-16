@@ -5,7 +5,7 @@ session_start();
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Inicio</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <style type="text/css">
         body{ font: 14px sans-serif; }
@@ -16,7 +16,7 @@ session_start();
 <header>
     <a class="btn btn-primary" href="index.php">Inicio</a>
     <a class="btn btn-primary" href="search.php">Buscar</a>
-    <a class="btn btn-primary" href="cart.php">Cesta</a>
+    <a class="btn btn-primary" href="addCart.php">Cesta</a>
     <?php // Change the link if user is connected or not
     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){?>
         <a class="btn btn-primary" href="logout.php">Cerrar sesión</a>
