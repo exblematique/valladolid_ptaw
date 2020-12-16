@@ -116,13 +116,13 @@ mysqli_close($link);
     </form>
 
     <h2>Lista de artículos en la tienda</h2>
-    <table>
+    <table class="table">
         <tr>
-            <th>Nombre</th>
-            <th>Categoría</th>
-            <th>Marca</th>
-            <th>Color</th>
-            <th>Precio</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Categoría</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Color</th>
+            <th scope="col">Precio</th>
         </tr>
         <?php echo $html_array; ?>
     </table>
