@@ -102,14 +102,16 @@ mysqli_close($link);
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
+    <title>Búsqueda</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style type="text/css">
-        body{ font: 14px sans-serif; }
-        .wrapper{padding: 20px; }
+        body{font: 14px sans-serif;}
+        .wrapper{padding: 20px;}
+        input[type=number]{width: 60px;}
     </style>
     <script>
+        // This function add an item in cart
         function addCart(id){
             var q = $("#quantity".id).val();
             $.post("addCart.php",{id: id, quantity: q});
@@ -121,7 +123,7 @@ mysqli_close($link);
 <header>
     <a class="btn btn-primary" href="index.php">Inicio</a>
     <a class="btn btn-primary" href="search.php">Buscar</a>
-    <a class="btn btn-primary" href="cart.php">Cesta</a>
+    <a class="btn btn-primary" href="addCart.php">Cesta</a>
     <?php // Change the link if user is connected or not
     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){?>
         <a class="btn btn-primary" href="logout.php">Cerrar sesión</a>
@@ -173,6 +175,7 @@ mysqli_close($link);
             <th scope="col">Marca</th>
             <th scope="col">Color</th>
             <th scope="col">Precio</th>
+            <th scope="col">Cantidad</th>
         </tr>
         <?php echo $html_array; ?>
     </table>
