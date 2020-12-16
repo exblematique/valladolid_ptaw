@@ -3,7 +3,7 @@
     mail: admin@uva.es
     password: password
 */
-INSERT INTO users (mail, password) VALUES ('admin@uva.es', '$2y$10$l0XzIFtL6b/Cb2yEvxOWuuMx7VhFuPpCaAzaFa0unjSg4dO96H6d6');
+INSERT INTO users (mail, password, address, postal, city) VALUES ('admin@uva.es', '$2y$10$l0XzIFtL6b/Cb2yEvxOWuuMx7VhFuPpCaAzaFa0unjSg4dO96H6d6', 'Paseo de Belén, 15', '47011', 'Valladolid');
 INSERT INTO admin (id_user) SELECT id FROM users WHERE users.mail = 'admin@uva.es';
 
 /* Create list of objects */

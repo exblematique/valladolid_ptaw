@@ -3,16 +3,17 @@
 require_once "config.php";
 
 // Define variables and initialize with empty values
-$mail = $password = $confirm_password = "";
-$mail_err = $password_err = $confirm_password_err = "";
+$mail = $password = $confirm_password = $address = $postal = $city = "";
+$mail_err = $password_err = $confirm_password_err = $address_err = $postal_err = $city_err = "";
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
-
     // Validate mail
+    // First if it's not empty
+    // Second if it's valid syntax
     if(empty(trim($_POST["mail"]))){
         $mail_err = "Por favor, introduzca un correo electrónico.";
-    } elseif (){
+    } elseif (!filter_var($_POST["mail"], FILTER_VALIDATE_EMAIL)){
         $mail_err = "Por favor, introduzca un correo con un formato correcto.";
     }
     else{
@@ -64,19 +65,46 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         }
     }
 
+    // Validate address
+    $address = trim($_POST["address"]);
+    if(empty($address)){
+        $confirm_address_err = "Por favor, introduzca una dirección.";
+    }
+
+    // Validate postal code
+    $postal = trim($_POST["postal_code"]);
+    if(empty($postal))
+        $postal_err = "Por favor, introduzca una código postal.";
+    else if (strlen($postal) != 5 or !is_numeric($postal))
+        $postal_err = "Por favor, introduzca una código postal correcto.";
+    else {
+        $code = intval($postal);
+        if ($code < 1000 or $code > 99999)
+            $postal_err = "Por favor, introduzca una código postal correcto.";
+    }
+
+    // Validate city
+    $city = trim($_POST["city"]);
+    if(empty($city)){
+        $city_err = "Por favor, introduzca una dirección.";
+    }
+
     // Check input errors before inserting in database
-    if(empty($mail_err) && empty($password_err) && empty($confirm_password_err)){
+    if(empty($mail_err) && empty($password_err) && empty($confirm_password_err) && empty($address_err) && empty($postal_err) && empty($city_err)){
 
         // Prepare an insert statement
-        $sql = "INSERT INTO users (mail, password) VALUES (?, ?)";
+        $sql = "INSERT INTO users (mail, password, address, postal, city) VALUES (?, ?, ?, ?, ?)";
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "ss", $param_mail, $param_password);
+            mysqli_stmt_bind_param($stmt, "sssss", $param_mail, $param_password, $param_address, $param_postal, $param_city);
 
             // Set parameters
             $param_mail = $mail;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
+            $param_address = $address;
+            $param_postal = $postal;
+            $param_city = $city;
 
             // Attempt to execute the prepared statement
             if(mysqli_stmt_execute($stmt)){
@@ -137,6 +165,21 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <label>Confirmar la contraseña</label>
             <input type="password" name="confirm_password" class="form-control" value="<?php echo $confirm_password; ?>">
             <span class="help-block"><?php echo $confirm_password_err; ?></span>
+        </div>
+        <div class="form-group <?php echo (!empty($address_err)) ? 'has-error' : ''; ?>">
+            <label>Dirección</label>
+            <input type="text" name="mail" class="form-control" value="<?php echo $address; ?>">
+            <span class="help-block"><?php echo $address_err; ?></span>
+        </div>
+        <div class="form-group <?php echo (!empty($postal_err)) ? 'has-error' : ''; ?>">
+            <label>Código postal</label>
+            <input type="text" name="mail" class="form-control" value="<?php echo $postal; ?>">
+            <span class="help-block"><?php echo $postal_err; ?></span>
+        </div>
+        <div class="form-group <?php echo (!empty($city_err)) ? 'has-error' : ''; ?>">
+            <label>Código postal</label>
+            <input type="text" name="mail" class="form-control" value="<?php echo $city; ?>">
+            <span class="help-block"><?php echo $city_err; ?></span>
         </div>
         <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Submit">
