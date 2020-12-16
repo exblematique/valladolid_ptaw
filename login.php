@@ -100,6 +100,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     </style>
 </head>
 <body>
+<header>
+    <a class="btn btn-primary" href="index.php">Inicio</a>
+    <a class="btn btn-primary" href="search.php">Buscar</a>
+    <a class="btn btn-primary" href="cart.php">Cesta</a>
+    <?php // Change the link if user is connected or not
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){?>
+        <a class="btn btn-primary" href="logout.php">Cerrar sesión</a>
+    <?php } else {?>
+        <a class="btn btn-primary" href="login.php">Initiar sesión</a>
+    <?php } ?>
+</header>
 <div class="wrapper">
     <h2>Login</h2>
     <p>Please fill in your credentials to login.</p>

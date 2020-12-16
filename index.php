@@ -10,7 +10,6 @@ session_start();
     <style type="text/css">
         body{ font: 14px sans-serif; }
         header{display: flex;}
-        .wrapper{ width: 350px; padding: 20px; }
     </style>
 </head>
 <body>
@@ -25,7 +24,7 @@ session_start();
         <a class="btn btn-primary" href="login.php">Initiar sesión</a>
     <?php } ?>
 </header>
-<h1>Bienvenido a nuestro nuevo sitio web de comercio electrónico.</h1>
-<h1>No dudes en ir a las diferentes pestañas en la parte superior de la página.</h1>
+<p>Bienvenido a nuestro nuevo sitio web de comercio electrónico.</p>
+<p>No dudes en ir a las diferentes pestañas en la parte superior de la página.</p>
 </body>
 </html>
