@@ -15,14 +15,14 @@ session_start();
 </head>
 <body>
 <header>
-    <a class="button" href="index.php">Inicio</a>
-    <a class="button" href="search.php">Buscar</a>
-    <a class="button" href="cart.php">Cesta</a>
+    <a class="btn btn-primary" href="index.php">Inicio</a>
+    <a class="btn btn-primary" href="search.php">Buscar</a>
+    <a class="btn btn-primary" href="cart.php">Cesta</a>
     <?php // Change the link if user is connected or not
     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){?>
-        <a class="button" href="logout.php">Cerrar sesión</a>
+        <a class="btn btn-primary" href="logout.php">Cerrar sesión</a>
     <?php } else {?>
-        <a class="button" href="login.php">Initiar sesión</a>
+        <a class="btn btn-primary" href="login.php">Initiar sesión</a>
     <?php } ?>
 </header>
 <h1>Bienvenido a nuestro nuevo sitio web de comercio electrónico.</h1>
