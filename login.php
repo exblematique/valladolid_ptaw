@@ -66,9 +66,9 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                             // Verify if the connected user is an admin and store his state in session variable
                             $sql_admin = "SELECT id FROM admin WHERE id_user = ?";
                             $stmt_admin = mysqli_prepare($link, $sql_admin);
-                            try { mysqli_stmt_execute($stmt); mysqli_stmt_store_result($stmt);}
+                            try { mysqli_stmt_execute($stmt_admin); mysqli_stmt_store_result($stmt_admin);}
                             catch (Exception $e) {echo "something went wrong : ",  $e->getMessage(), "\n";}
-                            $_SESSION["admin"] = (mysqli_stmt_num_rows($stmt) >= 1);
+                            $_SESSION["admin"] = (mysqli_stmt_num_rows($stmt_admin) >= 1);
 
                             // Redirect user to welcome page
                             header("location: index.php");
