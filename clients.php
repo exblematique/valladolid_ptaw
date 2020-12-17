@@ -13,11 +13,11 @@ if (isset($_POST["erase_client"]) && isset($_SESSION["loggedin"])){
 
 
 // Request details to the database and stores it in differents variables
-    $sql_search = "SELECT id, name, mail, address, postal, city, created_at FROM users";
-    $stmt_search = mysqli_prepare($link, $sql_search);
-    try { mysqli_stmt_execute($stmt_search); mysqli_stmt_bind_result($stmt_search, $col1,$col2,$col3,$col4,$col5,$col6,$col7);}
-    catch (Exception $e) {echo "something went wrong : ",  $e->getMessage(), "\n";}
-    $i=0;
+$sql_search = "SELECT id, name, mail, address, postal, city, created_at FROM users";
+$stmt_search = mysqli_prepare($link, $sql_search);
+try { mysqli_stmt_execute($stmt_search); mysqli_stmt_bind_result($stmt_search, $col1,$col2,$col3,$col4,$col5,$col6,$col7);}
+catch (Exception $e) {echo "something went wrong : ",  $e->getMessage(), "\n";}
+$i=0;
 while (mysqli_stmt_fetch ($stmt_search)) {
     $id[$i] = $col1;
     $name[$i] = $col2;
@@ -34,7 +34,7 @@ mysqli_stmt_close($stmt_search);
 if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&isset($_POST['address'])&&isset($_POST['postal'])&&isset($_POST['city'])){
     $sql = 'INSERT INTO users(name,mail,password,address,postal,city) VALUES (?,?,?,?,?,?)';
     $req = mysqli_prepare($link, $sql);
-    mysqli_stmt_bind_param($req, "s", $_POST['name'],$_POST['mail'],password_hash($_POST['password'], PASSWORD_DEFAULT),$_POST['address'],$_POST['postal'],$_POST['city']);
+    mysqli_stmt_bind_param($req, "ssssss", $_POST['name'],$_POST['mail'],password_hash($_POST['password'], PASSWORD_DEFAULT),$_POST['address'],$_POST['postal'],$_POST['city']);
     mysqli_stmt_execute($req);
     header('/admin.php?action=Clients');
     mysqli_stmt_close($req);
