@@ -28,6 +28,8 @@ if (!empty($error)) {
     $sql = "SELECT id, id_user, created_at, delivery_date FROM orders WHERE id = ?";
 
     if ($stmt = mysqli_prepare($link, $sql)) {
+        // Bind variables to the prepared statement as parameters
+        mysqli_stmt_bind_param($stmt, "s", $_GET["id"]);
         if($debug) echo $sql;
         if (mysqli_stmt_execute($stmt)) {
             mysqli_stmt_store_result($stmt);
