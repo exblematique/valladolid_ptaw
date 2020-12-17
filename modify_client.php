@@ -29,7 +29,7 @@ if (isset($_POST["update_client"])&&isset($_POST['updated_name'])&&isset($_POST[
     mysqli_stmt_execute($req);
     unset($_POST["update_client"]);
     mysqli_stmt_close($req);
-    header("Location: /modify_product.php");
+    header("Location: /modify_client.php");
 }
 mysqli_close($link);
 ?>
