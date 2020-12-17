@@ -34,10 +34,20 @@ mysqli_stmt_close($stmt_search);
 if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&isset($_POST['address'])&&isset($_POST['postal'])&&isset($_POST['city'])){
     $sql = 'INSERT INTO users(name,mail,password,address,postal,city) VALUES (?,?,?,?,?,?)';
     $req = mysqli_prepare($link, $sql);
+    mysqli_stmt_bind_param($req, "ssssss",$param_name, $param_mail, $param_password, $param_address, $param_postal, $param_city);
     mysqli_stmt_bind_param($req, "ssssss", $_POST['name'],$_POST['mail'],password_hash($_POST['password'], PASSWORD_DEFAULT),$_POST['address'],$_POST['postal'],$_POST['city']);
+    // Set parameters
+    $param_name = $_POST['name'];
+    $param_mail = $_POST['mail'];
+    $param_password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Creates a password hash
+    $param_address = $_POST['address'];
+    $param_postal = $_POST['postal'];
+    $param_city = $_POST['city'];
+
     mysqli_stmt_execute($req);
-    header('/admin.php?action=Clients');
     mysqli_stmt_close($req);
+
+    header('/admin.php?action=Clients');
 }
 
 ?>

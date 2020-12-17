@@ -39,10 +39,19 @@ mysqli_stmt_close($stmt_search);
 if (isset($_POST['name'])&&isset($_POST['category'])&&isset($_POST['brand'])&&isset($_POST['color'])&&isset($_POST['price'])){
     $sql = 'INSERT INTO products(name,category,brand,color,price) VALUES (?,?,?,?,?)';
     $req = mysqli_prepare($link, $sql);
-    mysqli_stmt_bind_param($req, "sssss", $_POST['name'],$_POST['category'],$_POST['brand'],$_POST['color'],$_POST['price']);
+    mysqli_stmt_bind_param($req, "sssss", $param_name, $param_category, $param_brand, $param_color, $param_price);
+
+    // Set parameters
+    $param_name = $_POST['name'];
+    $param_category = $_POST['category'];
+    $param_brand = $_POST['brand'];
+    $param_color = $_POST['color'];
+    $param_price = $_POST['price'];
+
     mysqli_stmt_execute($req);
-    header('/admin.php?action=Products');
     mysqli_stmt_close($req);
+
+    header('/admin.php?action=Products');
 }
 
 mysqli_close($link);
