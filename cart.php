@@ -105,12 +105,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $idUser = $_SESSION["id"];
         $dateOfDelivery = trim($_POST['delivery']);
         $sql = "INSERT INTO orders (id_user, delivery_date) VALUES ($idUser, DATE('$dateOfDelivery')); SELECT MAX(id) FROM orders WHERE id_user=$idUser";
-
+        if ($debug) echo "First SQL command : $sql";
         if ($stmt = mysqli_prepare($link, $sql)) {
             if (mysqli_stmt_execute($stmt)) {
                 mysqli_stmt_store_result($stmt);
                 // Check if there are a result
-                if (mysqli_stmt_num_rows($stmt) != 0) {
+                $nbRows = mysqli_stmt_num_rows($stmt);
+                if ($debug) echo "Numbers of rows : $nbRows";
+                if ($nbRows != 0) {
                     mysqli_stmt_bind_result($stmt, $idOrder);
                     if (!mysqli_stmt_fetch($stmt))
                         echo "¡Uy! Algo salió mal. Por favor, inténtalo de nuevo más tarde.";
@@ -122,7 +124,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             $quantity = $cart[$i]['quantity'];
                             $sql .= "INSERT INTO orders_products (id_order, id_product, quantity) VALUES ($idOrder, $idProduct, $quantity);";
                         }
-                        if ($debug) echo $sql;
+                        if ($debug) echo "Second SQL command : $sql";
                         // Add products in order
                         if ($stmt2 = mysqli_prepare($link, $sql)) {
                             if (mysqli_stmt_execute($stmt2)) {
