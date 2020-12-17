@@ -114,7 +114,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             mysqli_stmt_close($stmt);
 
 
-            $sql = "INSERT INTO orders (id_user, delivery_date) VALUES ($idUser, DATE('$dateOfDelivery'))";
+            $sql = "SELECT MAX(id) FROM orders WHERE id_user=1";
             if ($debug) echo "<br>Second SQL command : $sql";
             if ($stmt = mysqli_prepare($link, $sql)) {
                 if (mysqli_stmt_execute($stmt))
