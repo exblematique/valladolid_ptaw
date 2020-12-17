@@ -1,4 +1,6 @@
 <?php
+session_start();
+require_once "config.php";
 // Request details to the database and stores it in differents variables
     $sql_search = "SELECT id, name, mail, address, postal, city, created_at FROM users";
     $stmt_search = mysqli_prepare($link, $sql_search);
@@ -55,7 +57,7 @@ if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&iss
     <script>
         let ids = <?php echo json_encode($id) ?>;
         let names = <?php echo json_encode($name) ?>;
-        let mails = <?php echo $mail ?>;
+        let mails = <?php echo json_encode($mail) ?>;
         let addresses = <?php echo json_encode($address) ?>;
         let postals = <?php echo json_encode($postal) ?>;
         let citys = <?php echo json_encode($city) ?>;

@@ -1,4 +1,6 @@
 <?php
+session_start();
+require_once "config.php";
 // Request details of products to the database and stores it in differents variables
 $sql_search = "SELECT id, name, category, brand, color, price FROM products";
 $stmt_search = mysqli_prepare($link, $sql_search);
