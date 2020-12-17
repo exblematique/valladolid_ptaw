@@ -6,9 +6,8 @@ require_once "config.php";
     $stmt_search = mysqli_prepare($link, $sql_search);
     try { mysqli_stmt_execute($stmt_search); mysqli_stmt_bind_result($stmt_search, $col1,$col2,$col3,$col4,$col5,$col6,$col7);}
     catch (Exception $e) {echo "something went wrong : ",  $e->getMessage(), "\n";}
-    $users = $stmt_search;
-    mysqli_stmt_fetch ($users);
-    for ($i=0; $i<mysqli_stmt_num_rows($users); $i++) {
+    $i=0;
+while (mysqli_stmt_fetch ($stmt_search)) {
         $id[$i] = $col1;
         $name[$i] = $col2;
         $mail[$i] = $col3;
@@ -16,7 +15,7 @@ require_once "config.php";
         $postal[$i] = $col5;
         $city[$i] = $col6;
         $created_at[$i] = $col7;
-        mysqli_stmt_fetch ($users);
+        $i++;
     }
 // If a client has been added, send the details to the database
 if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&isset($_POST['address'])&&isset($_POST['postal'])&&isset($_POST['city'])){
