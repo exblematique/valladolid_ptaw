@@ -23,7 +23,7 @@ session_start();
     <?php
         if ($_SESSION["admin"]){?>
             <a class="btn btn-primary" href="admin.php">Admin Home</a>
-    <?php}
+    <?php
     } else {?>
         <a class="btn btn-primary" href="login.php">Initiar sesión</a>
     <?php }?>
