@@ -2,9 +2,8 @@
 // Request details of products to the database and stores it in differents variables
 $sql_search = "SELECT id, name, category, brand, color, price FROM products";
 $stmt_search = mysqli_prepare($link, $sql_search);
-try { mysqli_stmt_execute($stmt_search); mysqli_stmt_store_result($stmt_search);}
+try { mysqli_stmt_execute($stmt_search); $products = mysqli_stmt_store_result($stmt_search);}
 catch (Exception $e) {echo "something went wrong : ",  $e->getMessage(), "\n";}
-$products = mysqli_fetch_all($stmt_search);
 for ($i=0; $i<count($products); $i++) {
     $id[$i] = $products[$i]['id'];
     $name[$i] = $products[$i]['name'];
