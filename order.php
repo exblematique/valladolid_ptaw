@@ -113,7 +113,7 @@ mysqli_close($link);
     <?php
     // Create list of panier
     if (empty($order))
-        echo $error;
+        echo "<p>$error</p>";
     else {
         echo '<table class="table"><tr>';
         echo '<th scope="col">Nombre</th>';
