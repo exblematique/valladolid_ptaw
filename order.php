@@ -40,6 +40,7 @@ if (empty($error)) {
             // Check if there are a result
             if (mysqli_stmt_num_rows($stmt) == 1) {
                 mysqli_stmt_bind_result($stmt, $orderId, $userid, $orderDate, $deliveryDate);
+                mysqli_stmt_fetch($stmt);
                 $sessionId = $_SESSION['id'];
                 if ($debug) $debugOutput .= "<br>User id : .$userid. and Session id : .$sessionId.";
                 if ($userid == $sessionId){
