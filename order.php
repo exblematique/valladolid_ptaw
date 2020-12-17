@@ -112,6 +112,8 @@ mysqli_close($link);
     <h2>Cesta</h2>
     <?php
     // Create list of panier
+    var_dump($order);
+    var_dump($error);
     if (empty($order))
         echo "<p>$error</p>";
     else {
