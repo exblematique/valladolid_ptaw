@@ -5,7 +5,7 @@ if(isset($_POST["id"])){
     $id = $_POST["id"];
     $_SESSION["id_product"] = $id;
 }
-else $id = $_SESSION["id_client"];
+else $id = $_SESSION["id_product"];
 
 $sql = "SELECT id, name, category, brand, color, price FROM products WHERE id = ".$id;
 $req = mysqli_prepare($link, $sql);
