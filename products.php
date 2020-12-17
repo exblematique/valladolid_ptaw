@@ -5,6 +5,7 @@ $stmt_search = mysqli_prepare($link, $sql_search);
 try { mysqli_stmt_execute($stmt_search); mysqli_stmt_bind_result($stmt_search, $col1,$col2,$col3,$col4,$col5,$col6);}
 catch (Exception $e) {echo "something went wrong : ",  $e->getMessage(), "\n";}
 $products = $stmt_search;
+echo json_encode($products);
 mysqli_stmt_fetch ($products);
 for ($i=0; $i<mysqli_stmt_num_rows($products); $i++) {
     $id[$i] = $col1;
@@ -53,7 +54,7 @@ if (isset($_POST['name'])&&isset($_POST['category'])&&isset($_POST['brand'])&&is
 <script>
     let ids = <?php echo json_encode($id) ?>;
     let names = <?php echo json_encode($name) ?>;
-    let categories = <?php echo $category ?>;
+    let categories = <?php echo json_encode($category) ?>;
     let brands = <?php echo json_encode($brand) ?>;
     let colors = <?php echo json_encode($color) ?>;
     let prices = <?php echo json_encode($price) ?>;
