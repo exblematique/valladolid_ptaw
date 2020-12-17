@@ -13,7 +13,7 @@ $category = array();
 $brand = array();
 $color = array();
 $price = array();
-for ($i=0; $i<mysqli_stmt_num_rows($stmt_search); $i++) {
+for ($i=0; $i<11; $i++) {
     mysqli_stmt_fetch ($stmt_search);
     echo $col1;
     $id[$i] = $col1;
