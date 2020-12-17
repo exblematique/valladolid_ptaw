@@ -40,7 +40,9 @@ if (empty($error)) {
             // Check if there are a result
             if (mysqli_stmt_num_rows($stmt) == 1) {
                 mysqli_stmt_bind_result($stmt, $orderId, $userid, $orderDate, $deliveryDate);
-                if ($userid == $_SESSION['id']){
+                $sessionId = $_SESSION['id'];
+                if ($debug) $debugOutput .= "<br>User id : .$userid. and Session id : .$sessionId.";
+                if ($userid == $sessionId){
                     $sql = "SELECT name, category, brand, color, price, orders_products.quantity FROM products ";
                     $sql .= "INNER JOIN orders_products ON products.id=orders_products.id_product ";
                     $sql .= "WHERE id_order = $orderId";
