@@ -50,17 +50,17 @@ mysqli_close($link);
     </style>
 </head>
 <body>
-<h1>Client's details : </h1>
+<h1>Product's details : </h1>
 <p>Notice : You can edit the details in the table and confirm it by submitting them with the Update button.</p>
 <form action="modify_product.php" method="post">
     <table>
         <tr>
             <th>ID</th>
-            <th>Name</th>
-            <th>Category</th>
-            <th>Brand</th>
-            <th>Color</th>
-            <th>Price</th>
+            <th>Name : <?php echo json_encode($product['name']) ?></th>
+            <th>Category : <?php echo json_encode($product['category']) ?></th>
+            <th>Brand : <?php echo json_encode($product['brand']) ?></th>
+            <th>Color : <?php echo json_encode($product['color']) ?></th>
+            <th>Price : <?php echo json_encode($product['price']) ?></th>
         </tr>
         <tr>
             <td id="id"><?php echo json_encode($product['id']) ?></td>
@@ -69,15 +69,14 @@ mysqli_close($link);
             <td id="brand"><input type="text" name="updated_brand" id="updated_brand" placeholder="<?php echo json_encode($product['brand']) ?>"></td>
             <td id="color"><input type="text" name="updated_color" id="updated_color" placeholder="<?php echo json_encode($product['color']) ?>"></td>
             <td id="price"><input type="text" name="updated_price" id="updated_price" placeholder="<?php echo json_encode($product['price']) ?>"></td>
-            <td id="created_at"><?php echo json_encode($product['created_at']) ?></td>
         </tr>
     </table>
-    <input type="hidden" name="update_product" id="update_product" value="true">
+    <input type="hidden" name="update_product" id="update_product" value="true"><br/>
     <input type="submit" name="update" id="update" value="Update Product's Details" onclick="return confirm('Are you sure you want to update product\'s details ?');">
 </form>
 
 <form>
-    <input type="hidden" name="erase" id="erase" value="true">
+    <input type="hidden" name="erase" id="erase" value="true"><br/>
     <input type="submit" name="delete" id="delete" value="Delete Product" onclick="return confirm('Warning : Are you sure you want to delete the product ?');">
 </form>
 

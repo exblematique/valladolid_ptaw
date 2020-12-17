@@ -74,12 +74,12 @@ mysqli_close($link);
         <td id="created_at" contenteditable='false'><?php echo json_encode($client['created_at']) ?></td>
     </tr>
 </table>
-    <input type="hidden" name="update_client" id="update_client" value="true">
+    <input type="hidden" name="update_client" id="update_client" value="true"><br/>
     <input type="submit" name="update" id="update" value="Update Client's Details" onclick="return confirm('Are you sure you want to update client\'s details ?');">
 </form>
 
 <form>
-    <input type="hidden" name="erase" id="erase" value="true">
+    <input type="hidden" name="erase" id="erase" value="true"><br/>
     <input type="submit" name="delete" id="delete" value="Delete Client" onclick="return confirm('Warning : Are you sure you want to delete the client ?');">
 </form>
 
