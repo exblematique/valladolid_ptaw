@@ -21,7 +21,7 @@ session_start();
     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){?>
         <a class="btn btn-primary" href="logout.php">Cerrar sesión</a>
     <?php
-        if ($_SESSION["admin"]){?>
+        if (isset($_SESSION["loggedin"]) && $_SESSION["admin"] === true){?>
             <a class="btn btn-primary" href="admin.php">Admin Home</a>
     <?php}
     } else {?>
