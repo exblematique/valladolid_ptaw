@@ -66,11 +66,11 @@ mysqli_close($link);
     </tr>
     <tr>
         <td id="id" contenteditable='false'><?php echo json_encode($client['id']) ?></td>
-        <td id="name" contenteditable='true'><input type="hidden" name="updated_name" id="updated_name" value="<?php echo json_encode($client['name']) ?>"></td>
-        <td id="mail" contenteditable='true'><input type="hidden" name="updated_mail" id="updated_mail" value="<?php echo json_encode($client['mail']) ?>"></td>
-        <td id="address" contenteditable='true'><input type="hidden" name="updated_address" id="updated_address" value="<?php echo json_encode($client['address']) ?>"></td>
-        <td id="postal" contenteditable='true'><input type="hidden" name="updated_postal" id="updated_postal" value="<?php echo json_encode($client['postal']) ?>"></td>
-        <td id="city" contenteditable='true'><input type="hidden" name="updated_city" id="updated_city" value="<?php echo json_encode($client['city']) ?>"></td>
+        <td id="name" contenteditable='true'><input type="text" name="updated_name" id="updated_name" value="<?php echo json_encode($client['name']) ?>"></td>
+        <td id="mail" contenteditable='true'><input type="text" name="updated_mail" id="updated_mail" value="<?php echo json_encode($client['mail']) ?>"></td>
+        <td id="address" contenteditable='true'><input type="text" name="updated_address" id="updated_address" value="<?php echo json_encode($client['address']) ?>"></td>
+        <td id="postal" contenteditable='true'><input type="text" name="updated_postal" id="updated_postal" value="<?php echo json_encode($client['postal']) ?>"></td>
+        <td id="city" contenteditable='true'><input type="text" name="updated_city" id="updated_city" value="<?php echo json_encode($client['city']) ?>"></td>
         <td id="created_at" contenteditable='false'><?php echo json_encode($client['created_at']) ?></td>
     </tr>
 </table>
