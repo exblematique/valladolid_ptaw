@@ -5,14 +5,16 @@
     try { mysqli_stmt_execute($stmt_search); mysqli_stmt_store_result($stmt_search);}
     catch (Exception $e) {echo "something went wrong : ",  $e->getMessage(), "\n";}
     $users = $stmt_search;
+    mysqli_stmt_fetch ($users);
     for ($i=0; $i<mysqli_stmt_num_rows($users); $i++) {
-        $id[$i] = $users[$i]['id'];
-        $name[$i] = $users[$i]['name'];
-        $mail[$i] = $users[$i]['mail'];
-        $address[$i] = $users[$i]['address'];
-        $postal[$i] = $users[$i]['postal'];
-        $city[$i] = $users[$i]['city'];
-        $created_at[$i] = $users[$i]['created_at'];
+        $id[$i] = $users['id'];
+        $name[$i] = $users['name'];
+        $mail[$i] = $users['mail'];
+        $address[$i] = $users['address'];
+        $postal[$i] = $users['postal'];
+        $city[$i] = $users['city'];
+        $created_at[$i] = $users['created_at'];
+        mysqli_stmt_fetch ($users);
     }
 // If a client has been added, send the details to the database
 if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&isset($_POST['address'])&&isset($_POST['postal'])&&isset($_POST['city'])){

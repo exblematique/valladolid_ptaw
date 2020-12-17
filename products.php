@@ -5,13 +5,14 @@ $stmt_search = mysqli_prepare($link, $sql_search);
 try { mysqli_stmt_execute($stmt_search); mysqli_stmt_store_result($stmt_search);}
 catch (Exception $e) {echo "something went wrong : ",  $e->getMessage(), "\n";}
 $products = $stmt_search;
+mysqli_stmt_fetch ($products);
 for ($i=0; $i<mysqli_stmt_num_rows($products); $i++) {
-    $id[$i] = $products[$i]['id'];
-    $name[$i] = $products[$i]['name'];
-    $category[$i] = $products[$i]['category'];
-    $brand[$i] = $products[$i]['brand'];
-    $color[$i] = $products[$i]['color'];
-    $price[$i] = $products[$i]['price'];
+    $id[$i] = $products['id'];
+    $name[$i] = $products['name'];
+    $category[$i] = $products['category'];
+    $brand[$i] = $products['brand'];
+    $color[$i] = $products['color'];
+    $price[$i] = $products['price'];
 }
 // If a product has been added, send the details to the database
 if (isset($_POST['name'])&&isset($_POST['category'])&&isset($_POST['brand'])&&isset($_POST['color'])&&isset($_POST['price'])){
