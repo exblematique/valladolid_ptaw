@@ -51,7 +51,7 @@ if (isset($_POST['name'])&&isset($_POST['category'])&&isset($_POST['brand'])&&is
     mysqli_stmt_execute($req);
     mysqli_stmt_close($req);
 
-    header('/admin.php?action=Products');
+    //header('/admin.php?action=Products');
 }
 
 mysqli_close($link);

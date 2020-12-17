@@ -50,7 +50,7 @@ if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&iss
 
     //header('/admin.php?action=Clients');
 }
-
+mysqli_close($link);
 ?>
 
 <!doctype html>
