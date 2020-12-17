@@ -7,8 +7,8 @@ $stmt_search = mysqli_prepare($link, $sql_search);
 try { mysqli_stmt_execute($stmt_search); mysqli_stmt_bind_result($stmt_search, $col1,$col2,$col3,$col4,$col5,$col6);}
 catch (Exception $e) {echo "something went wrong : ",  $e->getMessage(), "\n";}
 $products = $stmt_search;
-echo json_encode($products);
 mysqli_stmt_fetch ($products);
+echo json_encode($products);
 for ($i=0; $i<mysqli_stmt_num_rows($products); $i++) {
     $id[$i] = $col1;
     $name[$i] = $col2;
