@@ -63,13 +63,13 @@ mysqli_close($link);
             <th>Price</th>
         </tr>
         <tr>
-            <td id="id" contenteditable='false'><?php echo json_encode($product['id']) ?></td>
-            <td id="name" contenteditable='true'><input type="text" name="updated_name" id="updated_name" value="<?php echo json_encode($product['name']) ?>"></td>
-            <td id="category" contenteditable='true'><input type="text" name="updated_category" id="updated_category" value="<?php echo json_encode($product['category']) ?>"></td>
-            <td id="brand" contenteditable='true'><input type="text" name="updated_brand" id="updated_brand" value="<?php echo json_encode($product['brand']) ?>"></td>
-            <td id="color" contenteditable='true'><input type="text" name="updated_color" id="updated_color" value="<?php echo json_encode($product['color']) ?>"></td>
-            <td id="price" contenteditable='true'><input type="text" name="updated_price" id="updated_price" value="<?php echo json_encode($product['price']) ?>"></td>
-            <td id="created_at" contenteditable='false'><?php echo json_encode($product['created_at']) ?></td>
+            <td id="id"><?php echo json_encode($product['id']) ?></td>
+            <td id="name"><input type="text" name="updated_name" id="updated_name" placeholder="<?php echo json_encode($product['name']) ?>"></td>
+            <td id="category"><input type="text" name="updated_category" id="updated_category" placeholder="<?php echo json_encode($product['category']) ?>"></td>
+            <td id="brand"><input type="text" name="updated_brand" id="updated_brand" placeholder="<?php echo json_encode($product['brand']) ?>"></td>
+            <td id="color"><input type="text" name="updated_color" id="updated_color" placeholder="<?php echo json_encode($product['color']) ?>"></td>
+            <td id="price"><input type="text" name="updated_price" id="updated_price" placeholder="<?php echo json_encode($product['price']) ?>"></td>
+            <td id="created_at"><?php echo json_encode($product['created_at']) ?></td>
         </tr>
     </table>
     <input type="hidden" name="update_product" id="update_product" value="true">
