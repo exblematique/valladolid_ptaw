@@ -76,11 +76,11 @@ mysqli_close($link);
         </tr>
         <tr>
             <?php echo '<td id="id">'.json_encode($product["id"]).' ?></td>';
-            echo '<td id="name"><input type="text" name="updated_name" id="updated_name" value="'.json_encode($product['name']).'"></td>';
-            echo '<td id="category"><input type="text" name="updated_category" id="updated_category" value="'.json_encode($product['category']).'"></td>';
-            echo '<td id="brand"><input type="text" name="updated_brand" id="updated_brand" value="'.json_encode($product['brand']).'"></td>';
-            echo '<td id="color"><input type="text" name="updated_color" id="updated_color" value="'.json_encode($product['color']).'"></td>';
-            echo '<td id="price"><input type="text" name="updated_price" id="updated_price" value="'.json_encode($product['price']).'"></td>';?>
+            echo '<td id="name"><input type="text" name="updated_name" id="updated_name" value='.json_encode($product['name']).'></td>';
+            echo '<td id="category"><input type="text" name="updated_category" id="updated_category" value='.json_encode($product['category']).'></td>';
+            echo '<td id="brand"><input type="text" name="updated_brand" id="updated_brand" value='.json_encode($product['brand']).'></td>';
+            echo '<td id="color"><input type="text" name="updated_color" id="updated_color" value='.json_encode($product['color']).'></td>';
+            echo '<td id="price"><input type="text" name="updated_price" id="updated_price" value='.json_encode($product['price']).'></td>';?>
         </tr>
     </table>
     <input type="hidden" name="update_product" id="update_product" value="true"><br/>
