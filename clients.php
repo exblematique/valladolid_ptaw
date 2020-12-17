@@ -35,7 +35,7 @@ if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&iss
     $sql = 'INSERT INTO users(name,mail,password,address,postal,city) VALUES (?,?,?,?,?,?)';
     $req = mysqli_prepare($link, $sql);
     mysqli_stmt_bind_param($req, "ssssss",$param_name, $param_mail, $param_password, $param_address, $param_postal, $param_city);
-    mysqli_stmt_bind_param($req, "ssssss", $_POST['name'],$_POST['mail'],password_hash($_POST['password'], PASSWORD_DEFAULT),$_POST['address'],$_POST['postal'],$_POST['city']);
+
     // Set parameters
     $param_name = $_POST['name'];
     $param_mail = $_POST['mail'];
@@ -47,7 +47,7 @@ if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&iss
     mysqli_stmt_execute($req);
     mysqli_stmt_close($req);
 
-    header('/admin.php?action=Clients');
+    //header('/admin.php?action=Clients');
 }
 
 ?>
