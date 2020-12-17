@@ -2,17 +2,17 @@
 // Request details of products to the database and stores it in differents variables
 $sql_search = "SELECT id, name, category, brand, color, price FROM products";
 $stmt_search = mysqli_prepare($link, $sql_search);
-try { mysqli_stmt_execute($stmt_search); mysqli_stmt_bind_result($stmt_search);}
+try { mysqli_stmt_execute($stmt_search); mysqli_stmt_bind_result($stmt_search, $col1,$col2,$col3,$col4,$col5,$col6);}
 catch (Exception $e) {echo "something went wrong : ",  $e->getMessage(), "\n";}
 $products = $stmt_search;
 mysqli_stmt_fetch ($products);
 for ($i=0; $i<mysqli_stmt_num_rows($products); $i++) {
-    $id[$i] = $products['id'];
-    $name[$i] = $products['name'];
-    $category[$i] = $products['category'];
-    $brand[$i] = $products['brand'];
-    $color[$i] = $products['color'];
-    $price[$i] = $products['price'];
+    $id[$i] = $col1;
+    $name[$i] = $col2;
+    $category[$i] = $col3;
+    $brand[$i] = $col4;
+    $color[$i] = $col5;
+    $price[$i] = $col6;
 }
 // If a product has been added, send the details to the database
 if (isset($_POST['name'])&&isset($_POST['category'])&&isset($_POST['brand'])&&isset($_POST['color'])&&isset($_POST['price'])){

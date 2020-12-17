@@ -2,18 +2,18 @@
 // Request details to the database and stores it in differents variables
     $sql_search = "SELECT id, name, mail, address, postal, city, created_at FROM users";
     $stmt_search = mysqli_prepare($link, $sql_search);
-    try { mysqli_stmt_execute($stmt_search); mysqli_stmt_bind_result($stmt_search);}
+    try { mysqli_stmt_execute($stmt_search); mysqli_stmt_bind_result($stmt_search, $col1,$col2,$col3,$col4,$col5,$col6,$col7,$col8);}
     catch (Exception $e) {echo "something went wrong : ",  $e->getMessage(), "\n";}
     $users = $stmt_search;
     mysqli_stmt_fetch ($users);
     for ($i=0; $i<mysqli_stmt_num_rows($users); $i++) {
-        $id[$i] = $users['id'];
-        $name[$i] = $users['name'];
-        $mail[$i] = $users['mail'];
-        $address[$i] = $users['address'];
-        $postal[$i] = $users['postal'];
-        $city[$i] = $users['city'];
-        $created_at[$i] = $users['created_at'];
+        $id[$i] = $col1;
+        $name[$i] = $col2;
+        $mail[$i] = $col3;
+        $address[$i] = $col5;
+        $postal[$i] = $col6;
+        $city[$i] = $col7;
+        $created_at[$i] = $col8;
         mysqli_stmt_fetch ($users);
     }
 // If a client has been added, send the details to the database
