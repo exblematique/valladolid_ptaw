@@ -34,7 +34,6 @@ if (empty($error)) {
         // Bind variables to the prepared statement as parameters
         //mysqli_stmt_bind_param($stmt, "s", $orderId);
         if ($debug) $debugOutput .= "<br>Enter to mysqli_prepare";
-
         if (mysqli_stmt_execute($stmt)) {
             mysqli_stmt_store_result($stmt);
             // Check if there are a result
@@ -62,7 +61,7 @@ if (empty($error)) {
                                     $totalPriceItem = intval($quantity)*intval($price);
                                     $totalPrice += $totalPriceItem;
                                     $order .= "<tr><td>$product</td><td>$category</td><td>$brand</td><td>$color</td><td>$price</td><td>$quantity</td><td>$totalPriceItem</td></tr>";
-                                }
+                               }
                             }
                             else $error = "La orden no pudo ser recuperada.";
                         }

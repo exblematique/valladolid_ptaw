@@ -1,26 +1,37 @@
 <?php
+session_start();
+require_once "config.php";
+
+// Delete a user
+if (isset($_POST["erase_client"]) && isset($_SESSION["loggedin"])){
+    $sql = "DELETE FROM users WHERE id = ".$_SESSION["id_client"];
+    $req = mysqli_prepare($link, $sql);
+    mysqli_stmt_execute($req);
+    unset($_POST["erase_client"]);
+}
+
 // Request details to the database and stores it in differents variables
     $sql_search = "SELECT id, name, mail, address, postal, city, created_at FROM users";
     $stmt_search = mysqli_prepare($link, $sql_search);
-    try { mysqli_stmt_execute($stmt_search); mysqli_stmt_bind_result($stmt_search);}
+    try { mysqli_stmt_execute($stmt_search); mysqli_stmt_bind_result($stmt_search, $col1,$col2,$col3,$col4,$col5,$col6,$col7);}
     catch (Exception $e) {echo "something went wrong : ",  $e->getMessage(), "\n";}
-    $users = $stmt_search;
-    mysqli_stmt_fetch ($users);
-    for ($i=0; $i<mysqli_stmt_num_rows($users); $i++) {
-        $id[$i] = $users['id'];
-        $name[$i] = $users['name'];
-        $mail[$i] = $users['mail'];
-        $address[$i] = $users['address'];
-        $postal[$i] = $users['postal'];
-        $city[$i] = $users['city'];
-        $created_at[$i] = $users['created_at'];
-        mysqli_stmt_fetch ($users);
+    $i=0;
+while (mysqli_stmt_fetch ($stmt_search)) {
+        $id[$i] = $col1;
+        $name[$i] = $col2;
+        $mail[$i] = $col3;
+        $address[$i] = $col4;
+        $postal[$i] = $col5;
+        $city[$i] = $col6;
+        $created_at[$i] = $col7;
+        $i++;
     }
 // If a client has been added, send the details to the database
 if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&isset($_POST['address'])&&isset($_POST['postal'])&&isset($_POST['city'])){
-    $req = $link->prepare('INSERT INTO users(name,mail,password,address,postal,city) VALUES(?,?,?,?,?,?)');
-    $req->execute(array($_POST['name'],$_POST['mail'],password_hash($_POST['password'], PASSWORD_DEFAULT),$_POST['address'],$_POST['postal'],$_POST['city']));
-
+    $sql = 'INSERT INTO users(name,mail,password,address,postal,city) VALUES (?,?,?,?,?,?)';
+    $req = mysqli_prepare($link, $sql);
+    mysqli_stmt_bind_param($req, "s", $_POST['name'],$_POST['mail'],password_hash($_POST['password'], PASSWORD_DEFAULT),$_POST['address'],$_POST['postal'],$_POST['city']);
+    mysqli_stmt_execute($req);
     header('/admin.php?action=Clients');
 }
 
@@ -45,7 +56,7 @@ if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&iss
         <select name="clients" id="list_clients">
             <option value="">--Select a client in the list--</option>
         </select>
-        <p> OU </p>
+        <p> Or : </p>
         <button id="create_client">Create a new client</button>
         <p id="detail_client"></p>
         <br/>
@@ -55,7 +66,7 @@ if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&iss
     <script>
         let ids = <?php echo json_encode($id) ?>;
         let names = <?php echo json_encode($name) ?>;
-        let mails = <?php echo $mail ?>;
+        let mails = <?php echo json_encode($mail) ?>;
         let addresses = <?php echo json_encode($address) ?>;
         let postals = <?php echo json_encode($postal) ?>;
         let citys = <?php echo json_encode($city) ?>;
@@ -95,32 +106,32 @@ if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&iss
             form.id = "create_client";
             form.action = url;
             form.method = "post";
-            name.type = "hidden";
+            name.type = "text";
             name.name = "name";
             name.id = "name";
             name.required = true;
             name.placeholder = "Name";
-            mail.type = "hidden";
+            mail.type = "text";
             mail.id = "mail";
             mail.name = "mail";
             mail.required = true;
             mail.placeholder = "Mail";
-            password.type = "hidden";
+            password.type = "text";
             password.id = "password";
             password.name = "password";
             password.required = true;
             password.placeholder = "Password";
-            address.type = "hidden";
+            address.type = "text";
             address.id = "address";
             address.name = "address";
             address.required = true;
             address.placeholder = "Address";
-            postal.type = "hidden";
+            postal.type = "text";
             postal.id = "postal";
             postal.name = "postal";
             postal.required = true;
             postal.placeholder = "ZIP Code";
-            city.type = "hidden";
+            city.type = "text";
             city.id = "title";
             city.name = "title";
             city.required = true;
@@ -135,6 +146,7 @@ if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&iss
             form.appendChild(address);
             form.appendChild(postal);
             form.appendChild(city);
+            form.appendChild(validate);
             detail.appendChild(form);
 
         }
