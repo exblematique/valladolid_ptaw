@@ -20,9 +20,13 @@ session_start();
     <?php // Change the link if user is connected or not
     if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){?>
         <a class="btn btn-primary" href="logout.php">Cerrar sesión</a>
-    <?php } else {?>
+    <?php
+        if ($_SESSION["admin"]){?>
+            <a class="btn btn-primary" href="admin.php">Admin Home</a>
+    <?php}
+    } else {?>
         <a class="btn btn-primary" href="login.php">Initiar sesión</a>
-    <?php } ?>
+    <?php }?>
 </header>
 <p>Bienvenido a nuestro nuevo sitio web de comercio electrónico.</p>
 <p>No dudes en ir a las diferentes pestañas en la parte superior de la página.</p>
