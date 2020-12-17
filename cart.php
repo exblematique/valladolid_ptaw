@@ -157,8 +157,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "¡Uy! Algo salió mal. Por favor, inténtalo de nuevo más tarde.";
         mysqli_stmt_close($stmt);
     }
-}
-}
+
 // Close connection
 mysqli_close($link);
 ?>
