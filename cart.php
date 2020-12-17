@@ -11,11 +11,11 @@ require_once "config.php";
 
 
 // Create list of article selected by user
-$cert = array();
+$cart = array();
 // Download all products from database
-if (!empty($_SESSION["cert"])) {
+if (!empty($_SESSION["cart"])) {
     $sql = "SELECT id, name, category, brand, color, price FROM products WHERE id IN (''";
-    foreach ($_SESSION["cert"] as $key => $value) {
+    foreach ($_SESSION["cart"] as $key => $value) {
         if (!empty($key) and !empty($value))
             $sql .= ",$key";
     }
@@ -28,14 +28,14 @@ if (!empty($_SESSION["cert"])) {
             if (mysqli_stmt_num_rows($stmt) != 0) {
                 mysqli_stmt_bind_result($stmt, $id, $name, $category, $brand, $color, $price);
                 while (mysqli_stmt_fetch($stmt)) {
-                    $cert[] = array(
+                    $cart[] = array(
                         'id' => $id,
                         'name' => $name,
                         'category' => $category,
                         'brand' => $brand,
                         'color' => $color,
                         'price' => $price,
-                        'quantity' => $_SESSION["cert"][$id]
+                        'quantity' => $_SESSION["cart"][$id]
                     );
                 }
             }
@@ -138,7 +138,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <h2>Cesta</h2>
     <?php
     // Create list of panier
-    if (empty($cert))
+    if (empty($cart))
         echo "Su cesta está vacía";
     else {
     ?> <table class="table">
@@ -152,17 +152,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             <th scope="col">Precio total</th>
         </tr>
     <?
-        for ($i=0; $i<count($cert); $i++){
+        for ($i=0; $i<count($cart); $i++){
     ?>
         <tr>
-            <td><?php echo $cert[$i]['name'];?></td>
-            <td><?php echo $cert[$i]['category'];?></td>
-            <td><?php echo $cert[$i]['brand'];?></td>
-            <td><?php echo $cert[$i]['color'];?></td>
-            <td><?php echo $cert[$i]['price'];?></td>"
-            <td><button class="btn btn-primary" onclick="changeCart(<?php echo $cert[$i]['id'];?>,-1)">-</button>
-                <div class="btn btn-outline-dark"><?php echo $cert[$i]['quantity'];?></div>
-                <button class="btn btn-primary" onclick="changeCart(<?php echo $cert[$i]['id'];?>,1)">+</button>
+            <td><?php echo $cart[$i]['name'];?></td>
+            <td><?php echo $cart[$i]['category'];?></td>
+            <td><?php echo $cart[$i]['brand'];?></td>
+            <td><?php echo $cart[$i]['color'];?></td>
+            <td><?php echo $cart[$i]['price'];?></td>"
+            <td><button class="btn btn-primary" onclick="changeCart(<?php echo $cart[$i]['id'];?>,-1)">-</button>
+                <div class="btn btn-outline-dark"><?php echo $cart[$i]['quantity'];?></div>
+                <button class="btn btn-primary" onclick="changeCart(<?php echo $cart[$i]['id'];?>,1)">+</button>
             </td>
         </tr>
     <?php } echo '</table>';}?>
