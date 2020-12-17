@@ -1,1 +1,20 @@
 <?php
+if(!isset($_REQUEST['action']))
+    $action = 'Home';
+else
+    $action = $_REQUEST['action'];
+switch($action)
+{
+    case 'Home':
+    {?>
+        <a href="admin.php?action=Clients" type="button" class="btn btn-default navbar-btn ">Access and modify details of Clients</a>
+        <a href="admin.php?action=Products" type="button" class="btn btn-default navbar-btn ">Access, add and modify details of Products</a>
+        <?php break;
+    }
+    case 'Clients' :
+    {include("Clients.php");break;}
+    case 'Products' :
+    {include("Products.php");break;}
+}
+?>
+
