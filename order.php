@@ -55,16 +55,16 @@ if (empty($error)) {
                             mysqli_stmt_store_result($stmt2);
 
                             // Check if there are a result
-                            //if (mysqli_stmt_num_rows($stmt2) != 0) {
+                            if (mysqli_stmt_num_rows($stmt2) != 0) {
                                 mysqli_stmt_bind_result($stmt2, $product, $category, $brand, $color, $price, $quantity);
                                 $totalPrice = 0;
                                 while (mysqli_stmt_fetch($stmt2)) {
                                     $totalPriceItem = intval($quantity)*intval($price);
                                     $totalPrice += $totalPriceItem;
-                                    $order .= "<tr><td>$product</td><td>$category</td><td>$brand</td><td>$color</td><td>$price</td><td>$quantity</td><td>$totalPrice</td></tr>";
+                                    $order .= "<tr><td>$product</td><td>$category</td><td>$brand</td><td>$color</td><td>$price</td><td>$quantity</td><td>$totalPriceItem</td></tr>";
                                 }
-                            //}
-                            //else $error = "La orden no pudo ser recuperada.";
+                            }
+                            else $error = "La orden no pudo ser recuperada.";
                         }
                         else
                             echo "¡Uy! Algo salió mal. Por favor, inténtalo de nuevo más tarde.";
@@ -136,7 +136,7 @@ mysqli_close($link);
         echo '<th scope="col">Precio total</th></tr>';
         echo $order;
         echo "</table><p>El precio total es: <b>$totalPrice</b></p>";
-        $date = date("Y-m-d");
+        $date = date("Y-m-d H:i:s");
         echo "<p>Fecha actual: <input type='text' name='delivery' value='$date' disabled></p>";
         echo "<p>Fecha de orden: <input type='text' name='delivery' value='$orderDate' disabled></p>";
         echo "<p>Fecha de entrega: <input type='text' name='delivery' value='$deliveryDate' disabled></p>";
