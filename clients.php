@@ -4,7 +4,7 @@
     $stmt_search = mysqli_prepare($link, $sql_search);
     try { mysqli_stmt_execute($stmt_search); $users = mysqli_stmt_store_result($stmt_search);}
     catch (Exception $e) {echo "something went wrong : ",  $e->getMessage(), "\n";}
-    for ($i=0; $i<count($users); $i++) {
+    for ($i=0; $i<mysqli_stmt_num_rows($users); $i++) {
         $id[$i] = $users[$i]['id'];
         $name[$i] = $users[$i]['name'];
         $mail[$i] = $users[$i]['mail'];
