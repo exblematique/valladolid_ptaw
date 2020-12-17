@@ -125,11 +125,13 @@ mysqli_close($link);
     <a class="btn btn-primary" href="search.php">Buscar</a>
     <a class="btn btn-primary" href="cart.php">Cesta</a>
     <?php // Change the link if user is connected or not
-    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){?>
-        <a class="btn btn-primary" href="logout.php">Cerrar sesión</a>
-    <?php } else {?>
-        <a class="btn btn-primary" href="login.php">Initiar sesión</a>
-    <?php } ?>
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+        echo '<a class="btn btn-primary" href="logout.php">Cerrar sesión</a>';
+        if ($_SESSION["admin"] === true)
+            echo '<a class="btn btn-primary" href="admin.php">Admin Home</a>';
+    } else
+        echo '<a class="btn btn-primary" href="login.php">Initiar sesión</a>';
+    ?>
 </header>
 <div class="wrapper">
     <h2>Buscar un artículo</h2>
