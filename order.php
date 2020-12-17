@@ -26,7 +26,7 @@ $cart = array();
 
 // Check if the order exist and belongs to user
 if ($debug) $debugOutput .= "<br>Value of orderId : $orderId";
-if (!empty($error)) {
+if (empty($error)) {
     $sql = "SELECT id, id_user, created_at, delivery_date FROM orders WHERE id = $orderId";
     if ($debug) $debugOutput .= "<br>First SQL command : $sql";
 
