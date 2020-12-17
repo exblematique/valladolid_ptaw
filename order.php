@@ -113,20 +113,16 @@ mysqli_close($link);
     <?php
     // Create list of panier
     if (empty($order))
-    echo $error;
+        echo $error;
     else {
-    ?>
-    <table class="table">
-        <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Categoría</th>
-            <th scope="col">Marca</th>
-            <th scope="col">Color</th>
-            <th scope="col">Precio por unidad</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col">Precio total</th>
-        </tr>
-        <?php
+        echo '<table class="table"><tr>';
+        echo '<th scope="col">Nombre</th>';
+        echo '<th scope="col">Categoría</th>';
+        echo '<th scope="col">Marca</th>';
+        echo '<th scope="col">Color</th>';
+        echo '<th scope="col">Precio por unidad</th>';
+        echo '<th scope="col">Cantidad</th>';
+        echo '<th scope="col">Precio total</th></tr>';
         echo $order;
         echo "</table><p>El precio total es: <b>$totalPrice</b></p>";
         $date = date("Y-m-d");
