@@ -1,6 +1,15 @@
 <?php
 session_start();
 require_once "config.php";
+
+// Delete a user
+if (isset($_POST["erase_client"]) && isset($_SESSION["loggedin"])){
+    $sql = "DELETE FROM users WHERE id = ".$id;
+    $req = mysqli_prepare($link, $sql);
+    mysqli_stmt_execute($req);
+    unset($_POST["erase_client"]);
+}
+
 // Request details to the database and stores it in differents variables
     $sql_search = "SELECT id, name, mail, address, postal, city, created_at FROM users";
     $stmt_search = mysqli_prepare($link, $sql_search);

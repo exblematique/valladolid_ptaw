@@ -19,13 +19,13 @@ $product['brand']=$col4;
 $product['color']=$col5;
 $product['price']=$col6;
 
-// Delete a product
+/*
 if (isset($_POST["erase"]) && isset($_SESSION["loggedin"])){
     $sql = "DELETE FROM products WHERE id = ".$id;
     $req = mysqli_prepare($link, $sql);
     mysqli_stmt_execute($req);
     unset($_POST["erase"]);
-}
+}*/
 
 // Update Product's details
 if (isset($_POST["update_product"])&&isset($_POST['updated_name'])&&isset($_POST['updated_category'])&&isset($_POST['updated_brand'])&&isset($_POST['updated_color'])&&isset($_POST['updated_price']) && isset($_SESSION["loggedin"])){
@@ -81,7 +81,7 @@ mysqli_close($link);
 </form>
 
 <form action="admin.php?action=Products"  method="post">
-    <input type="hidden" name="erase" id="erase" value="true"><br/>
+    <input type="hidden" name="erase_product" id="erase_product" value="true"><br/>
     <input type="submit" name="delete" id="delete" value="Delete Product" onclick="return confirm('Warning : Are you sure you want to delete the product ?');">
 </form>
 

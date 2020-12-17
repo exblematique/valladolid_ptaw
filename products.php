@@ -1,6 +1,15 @@
 <?php
 session_start();
 require_once "config.php";
+
+// Delete a product
+if (isset($_POST["erase_product"]) && isset($_SESSION["loggedin"])){
+    $sql = "DELETE FROM products WHERE id = ".$id;
+    $req = mysqli_prepare($link, $sql);
+    mysqli_stmt_execute($req);
+    unset($_POST["erase_product"]);
+}
+
 // Request details of products to the database and stores it in differents variables
 $sql_search = "SELECT id, name, category, brand, color, price FROM products";
 $stmt_search = mysqli_prepare($link, $sql_search);

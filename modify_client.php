@@ -20,13 +20,13 @@ $client['postal']=$col5;
 $client['city']=$col6;
 $client['created_at']=$col7;
 
-// Delete a user
+/*// Delete a user
 if (isset($_POST["erase"]) && isset($_SESSION["loggedin"])){
     $sql = "DELETE FROM users WHERE id = ".$id;
     $req = mysqli_prepare($link, $sql);
     mysqli_stmt_execute($req);
     unset($_POST["erase"]);
-}
+}*/
 
 // Update Client's details
 if (isset($_POST["update_client"])&&isset($_POST['updated_name'])&&isset($_POST['updated_mail'])&&isset($_POST['updated_password'])&&isset($_POST['updated_address'])&&isset($_POST['updated_postal'])&&isset($_POST['updated_city']) && isset($_SESSION["loggedin"])){
@@ -84,7 +84,7 @@ mysqli_close($link);
 </form>
 
 <form action="admin.php?action=Clients" method="post">
-    <input type="hidden" name="erase" id="erase" value="true"><br/>
+    <input type="hidden" name="erase_client" id="erase_client" value="true"><br/>
     <input type="submit" name="delete" id="delete" value="Delete Client" onclick="return confirm('Warning : Are you sure you want to delete the client ?');">
 </form>
 
