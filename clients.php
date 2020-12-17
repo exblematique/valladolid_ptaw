@@ -32,7 +32,7 @@ mysqli_stmt_close($stmt_search);
 
 // If a client has been added, send the details to the database
 if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&isset($_POST['address'])&&isset($_POST['postal'])&&isset($_POST['city'])){
-    $sql = 'INSERT INTO users(name,mail,password,address,postal,city) VALUES (?,?,?,?,?,?)';
+ /*   $sql = 'INSERT INTO users(name,mail,password,address,postal,city) VALUES (?,?,?,?,?,?)';
     $req = mysqli_prepare($link, $sql);
     mysqli_stmt_bind_param($req, "ssssss",$param_name, $param_mail, $param_password, $param_address, $param_postal, $param_city);
 
@@ -43,8 +43,11 @@ if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&iss
     $param_address = $_POST['address'];
     $param_postal = $_POST['postal'];
     $param_city = $_POST['city'];
-
+*/
+    $sql = 'INSERT INTO users(name,mail,password,address,postal,city) VALUES ('.$_POST['name'].','.$_POST['mail'].','.password_hash($_POST['password'], PASSWORD_DEFAULT).','.$_POST['address'].','.$param_postal = $_POST['postal'].','.$_POST['city'].')';
+    $req = mysqli_prepare($link, $sql);
     mysqli_stmt_execute($req);
+
     mysqli_stmt_close($req);
 
     //header('/admin.php?action=Clients');
