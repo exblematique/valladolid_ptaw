@@ -168,17 +168,17 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         </div>
         <div class="form-group <?php echo (!empty($address_err)) ? 'has-error' : ''; ?>">
             <label>Dirección</label>
-            <input type="text" name="mail" class="form-control" value="<?php echo $address; ?>">
+            <input type="text" name="address" class="form-control" value="<?php echo $address; ?>">
             <span class="help-block"><?php echo $address_err; ?></span>
         </div>
         <div class="form-group <?php echo (!empty($postal_err)) ? 'has-error' : ''; ?>">
             <label>Código postal</label>
-            <input type="text" name="mail" class="form-control" value="<?php echo $postal; ?>">
+            <input type="text" name="postal_code" class="form-control" value="<?php echo $postal; ?>">
             <span class="help-block"><?php echo $postal_err; ?></span>
         </div>
         <div class="form-group <?php echo (!empty($city_err)) ? 'has-error' : ''; ?>">
-            <label>Código postal</label>
-            <input type="text" name="mail" class="form-control" value="<?php echo $city; ?>">
+            <label>Ciudad</label>
+            <input type="text" name="city" class="form-control" value="<?php echo $city; ?>">
             <span class="help-block"><?php echo $city_err; ?></span>
         </div>
         <div class="form-group">

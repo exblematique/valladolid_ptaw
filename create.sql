@@ -10,7 +10,7 @@ CREATE TABLE users (
 
 CREATE TABLE admin (
     id      INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    id_user INT NOT NULL,
+    id_user INT NOT NULL UNIQUE,
     FOREIGN KEY (id_user) REFERENCES users(id)
 );
 
@@ -25,7 +25,7 @@ CREATE TABLE products (
 
 CREATE TABLE orders (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    id_user INT NOT NULL,
+    id_user INT NOT NULL UNIQUE,
     delivery_date DATE NOT NULL,
     FOREIGN KEY (id_user) REFERENCES users(id)
 );
