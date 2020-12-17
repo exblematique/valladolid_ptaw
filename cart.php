@@ -11,6 +11,7 @@ require_once "config.php";
 
 // Define variables
 $date_err = "";
+$debug = true;
 // Calcul dateDeliveryMin with remove saturday, sunday and add 2 days;
 $currentDay = getdate()['wday'];
 // If sunday add 3 days
@@ -121,6 +122,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             $quantity = $cart[$i]['quantity'];
                             $sql .= "INSERT INTO orders_products (id_order, id_product, quantity) VALUES ($idOrder, $idProduct, $quantity);";
                         }
+                        if ($debug) echo $sql;
                         // Add products in order
                         if ($stmt2 = mysqli_prepare($link, $sql)) {
                             if (mysqli_stmt_execute($stmt2)) {
