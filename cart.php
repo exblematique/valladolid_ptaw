@@ -11,7 +11,8 @@ require_once "config.php";
 
 // Define variables
 $date_err = "";
-$debug = true;
+$debug = false;
+
 // Calcul dateDeliveryMin with remove saturday, sunday and add 2 days;
 $currentDay = getdate()['wday'];
 // If sunday add 3 days
