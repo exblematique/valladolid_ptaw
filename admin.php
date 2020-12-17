@@ -29,9 +29,9 @@ switch($action)
 {
     case 'Home':
     {?>
-        <button href="admin.php?action=Clients" class="btn btn-default navbar-btn ">Access and modify details of Clients</button>
+        <a href="admin.php?action=Clients" type="button" class="btn btn-default navbar-btn ">Access and modify details of Clients</a>
         <br/><br/>
-        <button href="admin.php?action=Products" class="btn btn-default navbar-btn ">Access, add and modify details of Products</button>
+        <a href="admin.php?action=Products" type="button" class="btn btn-default navbar-btn ">Access, add and modify details of Products</a>
         <?php break;
     }
     case 'Clients' :
