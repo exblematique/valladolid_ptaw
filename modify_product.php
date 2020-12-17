@@ -75,7 +75,7 @@ mysqli_close($link);
     <input type="submit" name="update" id="update" value="Update Product's Details" onclick="return confirm('Are you sure you want to update product\'s details ?');">
 </form>
 
-<form>
+<form method="post">
     <input type="hidden" name="erase" id="erase" value="true"><br/>
     <input type="submit" name="delete" id="delete" value="Delete Product" onclick="return confirm('Warning : Are you sure you want to delete the product ?');">
 </form>
