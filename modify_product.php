@@ -19,14 +19,6 @@ $product['brand']=$col4;
 $product['color']=$col5;
 $product['price']=$col6;
 
-/*
-if (isset($_POST["erase"]) && isset($_SESSION["loggedin"])){
-    $sql = "DELETE FROM products WHERE id = ".$id;
-    $req = mysqli_prepare($link, $sql);
-    mysqli_stmt_execute($req);
-    unset($_POST["erase"]);
-}*/
-
 // Update Product's details
 if (isset($_POST["update_product"])&&isset($_POST['updated_name'])&&isset($_POST['updated_category'])&&isset($_POST['updated_brand'])&&isset($_POST['updated_color'])&&isset($_POST['updated_price']) && isset($_SESSION["loggedin"])){
     $sql = "UPDATE products SET name = ".$_POST['updated_name'].", category = ".$_POST['updated_category'].", brand = ".$_POST['updated_brand'].", color = ".$_POST['updated_color'].", price = ".$_POST['updated_price']." WHERE id = ".$id;

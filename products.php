@@ -4,7 +4,7 @@ require_once "config.php";
 
 // Delete a product
 if (isset($_POST["erase_product"]) && isset($_SESSION["loggedin"])){
-    $sql = "DELETE FROM products WHERE id = ".$id;
+    $sql = "DELETE FROM products WHERE id = ".$_SESSION["id_product"];
     $req = mysqli_prepare($link, $sql);
     mysqli_stmt_execute($req);
     unset($_POST["erase_product"]);
