@@ -62,7 +62,7 @@ if (!empty($_SESSION["cart"])) {
 // List of previous delivery
 $idUser = $_SESSION["id"];
 $previousOrder = "";
-$sql = "SELECT order, delivery_date INTO orders WHERE id_user = $idUser";
+$sql = "SELECT id, delivery_date INTO orders WHERE id_user = $idUser";
 // Add products in order
 if ($stmt = mysqli_prepare($link, $sql)) {
     if (mysqli_stmt_execute($stmt)) {
@@ -150,7 +150,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         } else
             echo "¡Uy! Algo salió mal. Por favor, inténtalo de nuevo más tarde.";
         mysqli_stmt_close($stmt);
-        header("Refresh:0");
+        // Refhesh page after modification of database
+        if (!$debug) header("Refresh:0");
     }
 }
 
