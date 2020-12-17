@@ -100,7 +100,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         $date_err = "La cita no puede ser durante el fin de semana.";
 
     // Validate credentials
-    if(empty($date_err)){
+    if(empty($date_err)) {
         // Create order
         $idUser = $_SESSION["id"];
         $dateOfDelivery = trim($_POST['delivery']);
@@ -110,7 +110,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($stmt = mysqli_prepare($link, $sql)) {
             if (mysqli_stmt_execute($stmt))
                 mysqli_stmt_store_result($stmt);
-            }
             mysqli_stmt_close($stmt);
 
 
@@ -119,44 +118,39 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             if ($stmt = mysqli_prepare($link, $sql)) {
                 if (mysqli_stmt_execute($stmt))
                     mysqli_stmt_store_result($stmt);
-                }
-                mysqli_stmt_close($stmt);
+            }
 
             // Check if there are a result
-            $nbRows = mysqli_stmt_num_rows($stmt);
-            if ($debug) echo "Numbers of rows : $nbRows";
-            if ($nbRows != 0) {
+            if (mysqli_stmt_num_rows($stmt) == 1) {
                 mysqli_stmt_bind_result($stmt, $idOrder);
                 if (!mysqli_stmt_fetch($stmt))
                     echo "¡Uy! Algo salió mal. Por favor, inténtalo de nuevo más tarde.";
                 else {
-                    $sql = "";
                     // Add products of order in DB
-                    for ($i=0; $i<count($cart); $i++) {
+                    for ($i = 0; $i < count($cart); $i++) {
                         $idProduct = $cart[$i]['id'];
                         $quantity = $cart[$i]['quantity'];
-                        $sql .= "SELECT MAX(id) FROM orders WHERE id_user=1";
-                    }
-                    if ($debug) echo "Second SQL command : $sql";
-                    // Add products in order
-                    if ($stmt2 = mysqli_prepare($link, $sql)) {
-                        if (mysqli_stmt_execute($stmt2)) {
-                            mysqli_stmt_store_result($stmt2);
-                            while (mysqli_stmt_fetch($stmt2))
-                                continue;
-                            unset($_SESSION['cart']);
-                        }
-                        else
-                            echo "¡Uy! Algo salió mal. Por favor, inténtalo de nuevo más tarde.";
-                        mysqli_stmt_close($stmt2);
-                    }
+                        $sql = "INSERT INTO orders_products (id_order, id_product, quantity) VALUES ($idOrder, $idProduct, $quantity)";
+                        if ($debug) echo "<br>Order SQL command number $i: $sql";
 
+                        // Add products in order
+                        if ($stmt2 = mysqli_prepare($link, $sql)) {
+                            if (mysqli_stmt_execute($stmt2)) {
+                                mysqli_stmt_store_result($stmt2);
+                                mysqli_stmt_fetch($stmt2);
+                            } else
+                                echo "¡Uy! Algo salió mal. Por favor, inténtalo de nuevo más tarde.";
+                            mysqli_stmt_close($stmt2);
+                        }
+                    }
+                    unset($_SESSION['cart']);
                 }
             }
         } else
             echo "¡Uy! Algo salió mal. Por favor, inténtalo de nuevo más tarde.";
         mysqli_stmt_close($stmt);
     }
+}
 
 // Close connection
 mysqli_close($link);
