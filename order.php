@@ -14,7 +14,7 @@ if(!isset($_SESSION["loggedin"]) or $_SESSION["loggedin"] !== true){
 
 if (empty($_GET["id"]) or !is_numeric($_GET["id"]))
     $error = "El número de orden es inválido";
-elseif ($orderId = intval($_GET["id"]) <= 0)
+elseif (($orderId = intval($_GET["id"])) <= 0)
     $error = "El número de orden es inválido";
 
 // Include config file
@@ -29,8 +29,8 @@ if (!empty($error)) {
 
     if ($stmt = mysqli_prepare($link, $sql)) {
         // Bind variables to the prepared statement as parameters
-        mysqli_stmt_bind_param($stmt, "i", $_GET["id"]);
-        if($debug) echo $sql;
+        mysqli_stmt_bind_param($stmt, "s", $_GET["id"]);
+
         if (mysqli_stmt_execute($stmt)) {
             mysqli_stmt_store_result($stmt);
             // Check if there are a result
