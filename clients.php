@@ -60,53 +60,21 @@ if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&iss
         let select = document.getElementById ("list_clients");
 
         for (let i =0; i<ids.length; i++){
-            select.options[select.options.length] = new Option ("Client ID n°"+ids[i]+" : "+name, ids[i]);
+            select.options[select.options.length] = new Option ("Client ID n°"+ids[i]+" : "+names[i], ids[i]);
         }
 
         select.onchange = function() {
-            let line_selected = select.selectedIndex;
-            let idSpot = select.value;
-            let name_client = select.options[select.selectedIndex].text.substr(7);
-
-            document.getElementById("demo").innerHTML = idSpot + " / " + nom_spot; // .options[liste.selectedIndex].text
-
             //Dynamic creation of the form
+            let id = document.createElement('input');
             let form = document.createElement('form');
-            let name = document.createElement('input');
-            let mail = document.createElement('input');
-            let address = document.createElement('input');
-            let postal = document.createElement('input');
-            let city = document.createElement('input');
-            let url = window.location.search;
             form.method = "post";
             form.action = "/modify_client.php";
-            //Add details of the client in hidden parameters
-            name.type = "hidden";
-            name.name = "name";
-            name.id = "name";
-            name.value = names[line_selected];
-            mail.type = "hidden";
-            mail.id = "mail";
-            mail.name = "mail";
-            mail.value = mails[line_selected];
-            address.type = "hidden";
-            address.id = "address";
-            address.name = "address";
-            address.value = addresses[line_selected];
-            postal.type = "hidden";
-            postal.id = "postal";
-            postal.name = "postal";
-            postal.value = postals[line_selected];
-            city.type = "hidden";
-            city.id = "city";
-            city.name = "city";
-            city.value = citys[line_selected];
-            form.appendChild(name);
-            form.appendChild(mail);
-            form.appendChild(address);
-            form.appendChild(postal);
-            form.appendChild(city);
-            //add the form to tha page and submit it
+            id.type = "hidden";
+            id.name = "id";
+            id.id = "id";
+            id.value = select.value;
+            form.appendChild(id);
+            //add the form to the page and submit it
             document.body.appendChild(form);
             form.submit();
         }
