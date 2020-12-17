@@ -27,6 +27,7 @@ CREATE TABLE products (
 CREATE TABLE orders (
     id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     id_user INT NOT NULL UNIQUE,
+    created_at   DATETIME DEFAULT CURRENT_TIMESTAMP NOT NULL,
     delivery_date DATE NOT NULL,
     FOREIGN KEY (id_user) REFERENCES users(id)
 );
