@@ -48,14 +48,14 @@ if (!empty($error)) {
                             mysqli_stmt_store_result($stmt2);
 
                             // Check if there are a result
-                            if (mysqli_stmt_num_rows($stmt2) != 0) {
+                            //if (mysqli_stmt_num_rows($stmt2) != 0) {
                                 mysqli_stmt_bind_result($stmt2, $product, $category, $brand, $color, $price, $quantity);
                                 while (mysqli_stmt_fetch($stmt2)) {
                                     $totalPrice = intval($quantity)*intval($price);
                                     $order .= "<tr><td>$product</td><td>$category</td><td>$brand</td><td>$color</td><td>$price</td><td>$quantity</td><td>$totalPrice</td></tr>";
                                 }
-                            }
-                            else $error = "La orden no pudo ser recuperada.";
+                            //}
+                            //else $error = "La orden no pudo ser recuperada.";
                         }
                         else
                             echo "¡Uy! Algo salió mal. Por favor, inténtalo de nuevo más tarde.";
