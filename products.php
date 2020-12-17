@@ -6,7 +6,6 @@ $sql_search = "SELECT id, name, category, brand, color, price FROM products";
 $stmt_search = mysqli_prepare($link, $sql_search);
 try { mysqli_stmt_execute($stmt_search); mysqli_stmt_bind_result($stmt_search, $col1,$col2,$col3,$col4,$col5,$col6);}
 catch (Exception $e) {echo "something went wrong : ",  $e->getMessage(), "\n";}
-$products = $stmt_search;
 echo $col1.$col2;
 $id = array();
 $name = array();
@@ -14,8 +13,9 @@ $category = array();
 $brand = array();
 $color = array();
 $price = array();
-for ($i=0; $i<mysqli_stmt_num_rows($products); $i++) {
-    mysqli_stmt_fetch ($products);
+for ($i=0; $i<mysqli_stmt_num_rows($stmt_search); $i++) {
+    mysqli_stmt_fetch ($stmt_search);
+    echo $col1;
     $id[$i] = $col1;
     $name[$i] = $col2;
     $category[$i] = $col3;
@@ -23,6 +23,8 @@ for ($i=0; $i<mysqli_stmt_num_rows($products); $i++) {
     $color[$i] = $col5;
     $price[$i] = $col6;
 }
+mysqli_stmt_close($stmt_search);
+mysqli_close($link);
 // If a product has been added, send the details to the database
 if (isset($_POST['name'])&&isset($_POST['category'])&&isset($_POST['brand'])&&isset($_POST['color'])&&isset($_POST['price'])){
     $req = $link->prepare('INSERT INTO products(name,category,brand,color,price) VALUES(?,?,?,?,?)');
