@@ -7,7 +7,6 @@ $stmt_search = mysqli_prepare($link, $sql_search);
 try { mysqli_stmt_execute($stmt_search); mysqli_stmt_bind_result($stmt_search, $col1,$col2,$col3,$col4,$col5,$col6);}
 catch (Exception $e) {echo "something went wrong : ",  $e->getMessage(), "\n";}
 $products = $stmt_search;
-mysqli_stmt_fetch ($products);
 echo $col1.$col2;
 $id = array();
 $name = array();
@@ -16,6 +15,7 @@ $brand = array();
 $color = array();
 $price = array();
 for ($i=0; $i<mysqli_stmt_num_rows($products); $i++) {
+    mysqli_stmt_fetch ($products);
     $id[$i] = $col1;
     $name[$i] = $col2;
     $category[$i] = $col3;
