@@ -28,7 +28,7 @@ if (isset($_POST["update_product"])&&isset($_POST['updated_name'])&&isset($_POST
     mysqli_stmt_execute($req);
     unset($_POST["update_product"]);
     mysqli_stmt_close($req);
-    header("/modify_product.php");
+    header("Location: http://valladolid-tpaw.alwaysdata.net/modify_product.php");
 }
 
 mysqli_close($link);
