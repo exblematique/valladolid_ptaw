@@ -137,7 +137,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                         if ($stmt2 = mysqli_prepare($link, $sql)) {
                             if (mysqli_stmt_execute($stmt2)) {
                                 mysqli_stmt_store_result($stmt2);
-                                mysqli_stmt_fetch($stmt2);
+                                if (!mysqli_stmt_fetch($stmt2) and $debug)
+                                    echo "<br>There is a problem of DB";
                             } else
                                 echo "¡Uy! Algo salió mal. Por favor, inténtalo de nuevo más tarde.";
                             mysqli_stmt_close($stmt2);
@@ -149,6 +150,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
         } else
             echo "¡Uy! Algo salió mal. Por favor, inténtalo de nuevo más tarde.";
         mysqli_stmt_close($stmt);
+        header("Refresh:0");
     }
 }
 
