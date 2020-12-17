@@ -54,6 +54,7 @@ if (isset($_POST['name'])&&isset($_POST['category'])&&isset($_POST['brand'])&&is
 
 <p id="demo"></p>
 <script>
+    console.log(<?php echo ".$id."; ?>);
     let ids = <?php echo json_encode($id) ?>;
     let names = <?php echo json_encode($name) ?>;
     let categories = <?php echo json_encode($category) ?>;
