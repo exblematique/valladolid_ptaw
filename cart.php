@@ -127,6 +127,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                                 mysqli_stmt_store_result($stmt2);
                                 while (mysqli_stmt_fetch($stmt2))
                                     continue;
+                                unset($_SESSION['cart']);
                             }
                             else
                                 echo "¡Uy! Algo salió mal. Por favor, inténtalo de nuevo más tarde.";
@@ -218,11 +219,13 @@ mysqli_close($link);
         </tr>
     <?php }
         echo "</table><p>El precio total es: <b>$totalPrice</b></p>";
-        echo "<p>Por favor, elija una fecha de entrega: <input type='date' name='delivery' value='$dateDeliveryMin' min='$dateDeliveryMin'></p>";
+        $date = date("Y-d-m", $dateDeliveryMin);
+        echo "<p>Por favor, elija una fecha de entrega: <input type='date' name='delivery' value='$date' min='$date'></p>";
         echo "<p>¡Cuidado! La entrega toma dos días de trabajo.</p>";
         $thisPage = htmlspecialchars($_SERVER["PHP_SELF"]);
         echo "<form action='$thisPage' method='post'>";
         echo "<button type='submit' class='btn btn-primary'>Haga clic aquí para completar el pedido</button>";
+        echo "<div class='form-group has-error'>$date_err</div>";
         echo "</form>";
     }?>
 

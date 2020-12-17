@@ -28,13 +28,13 @@ CREATE TABLE orders (
     id_user INT NOT NULL,
     delivery_date DATE NOT NULL,
     FOREIGN KEY (id_user) REFERENCES users(id)
-)
+);
 
 CREATE TABLE orders_products (
      id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
      id_order INT NOT NULL,
-     FOREIGN KEY (id_order) REFERENCES orders(id)
+     FOREIGN KEY (id_order) REFERENCES orders(id),
      id_products INT NOT NULL,
-     FOREIGN KEY (id_products) REFERENCES products(id)
+     FOREIGN KEY (id_products) REFERENCES products(id),
      quantity INT NOT NULL,
-)
+);
