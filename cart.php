@@ -74,7 +74,7 @@ if ($stmt = mysqli_prepare($link, $sql)) {
         if (mysqli_stmt_num_rows($stmt) != 0) {
             mysqli_stmt_bind_result($stmt, $orderNb, $orderDate,$deliveryDate);
             while (mysqli_stmt_fetch($stmt))
-                $previousOrder .= "<tr><td>$orderNb</td><td>$orderDate</td><td>$deliveryDate</td><td><button onclick=\"window.location.href='orden.php?id=$orderNb'\">Vea el orden</button></td></tr>";
+                $previousOrder .= "<tr><td>$orderNb</td><td>$orderDate</td><td>$deliveryDate</td><td><button onclick=\"window.location.href='order.php?id=$orderNb'\">Vea el orden</button></td></tr>";
         }
     }
     else
