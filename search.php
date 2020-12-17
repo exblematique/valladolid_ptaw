@@ -113,7 +113,7 @@ mysqli_close($link);
     <script>
         // This function add an item in cart
         function addCart(id){
-            var q = $("#quantity"+id).val();
+            var q = document.querySelector("#quantity"+id).value;
             $.post("addCart.php",{id: id, quantity: q});
         }
     </script>
