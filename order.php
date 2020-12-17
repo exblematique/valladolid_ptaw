@@ -28,6 +28,7 @@ if (!empty($error)) {
     $sql = "SELECT id, id_user, created_at, delivery_date FROM orders WHERE id = ?";
 
     if ($stmt = mysqli_prepare($link, $sql)) {
+        if($debug) echo $sql;
         if (mysqli_stmt_execute($stmt)) {
             mysqli_stmt_store_result($stmt);
             // Check if there are a result
@@ -37,9 +38,10 @@ if (!empty($error)) {
                     $sql = "SELECT name, category, brand, color, price, orders_products.quantity FROM products ";
                     $sql .= "INNER JOIN orders_products ON products.id=orders_products.id_product ";
                     $sql .= "WHERE id_order = $orderId";
-                    if ($debug) echo "First SQL command : $sql";
+                    if ($debug) echo "<br>First SQL command : $sql";
                     // Add products in order
                     if ($stmt2 = mysqli_prepare($link, $sql)) {
+                        if($debug) echo "<br>List order";
                         if (mysqli_stmt_execute($stmt2)) {
                             mysqli_stmt_store_result($stmt2);
 
