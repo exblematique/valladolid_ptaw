@@ -13,8 +13,8 @@ $category = array();
 $brand = array();
 $color = array();
 $price = array();
-for ($i=0; $i<11; $i++) {
-    mysqli_stmt_fetch ($stmt_search);
+$i=0;
+while (mysqli_stmt_fetch ($stmt_search)){
     echo $col1;
     $id[$i] = $col1;
     $name[$i] = $col2;
@@ -22,6 +22,7 @@ for ($i=0; $i<11; $i++) {
     $brand[$i] = $col4;
     $color[$i] = $col5;
     $price[$i] = $col6;
+    $i++;
 }
 mysqli_stmt_close($stmt_search);
 mysqli_close($link);
