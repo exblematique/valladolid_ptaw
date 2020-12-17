@@ -4,7 +4,7 @@ session_start();
 // Define variables
 $error = "";
 $order = "";
-$debug = true;
+$debug = false;
 $debugOutput = "";
 
 // Check if the user is already logged in, if yes then redirect him to welcome page
@@ -57,8 +57,10 @@ if (empty($error)) {
                             // Check if there are a result
                             //if (mysqli_stmt_num_rows($stmt2) != 0) {
                                 mysqli_stmt_bind_result($stmt2, $product, $category, $brand, $color, $price, $quantity);
+                                $totalPrice = 0;
                                 while (mysqli_stmt_fetch($stmt2)) {
-                                    $totalPrice = intval($quantity)*intval($price);
+                                    $totalPriceItem = intval($quantity)*intval($price);
+                                    $totalPrice += $totalPriceItem;
                                     $order .= "<tr><td>$product</td><td>$category</td><td>$brand</td><td>$color</td><td>$price</td><td>$quantity</td><td>$totalPrice</td></tr>";
                                 }
                             //}
@@ -135,9 +137,9 @@ mysqli_close($link);
         echo $order;
         echo "</table><p>El precio total es: <b>$totalPrice</b></p>";
         $date = date("Y-m-d");
-        echo "<p>Fecha actual: <input type='date' name='delivery' value='$date' disabled></p>";
-        echo "<p>Fecha de orden: <input type='date' name='delivery' value='$orderDate' disabled></p>";
-        echo "<p>Fecha de entrega: <input type='date' name='delivery' value='$deliveryDate' disabled></p>";
+        echo "<p>Fecha actual: <input type='text' name='delivery' value='$date' disabled></p>";
+        echo "<p>Fecha de orden: <input type='text' name='delivery' value='$orderDate' disabled></p>";
+        echo "<p>Fecha de entrega: <input type='text' name='delivery' value='$deliveryDate' disabled></p>";
     }?>
 
 </div>
