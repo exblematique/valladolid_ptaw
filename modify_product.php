@@ -76,7 +76,8 @@ mysqli_close($link);
         </tr>
         <tr>
             <?php echo '<td id="id">'.json_encode($product["id"]).' ?></td>';
-            echo '<td id="name"><input type="text" name="updated_name" id="updated_name" value="'.trim($product['name'], '"').'"></td>';
+            $tg="yo";
+            echo '<td id="name"><input type="text" name="updated_name" id="updated_name" value='.$tg.'></td>';
             echo '<td id="category"><input type="text" name="updated_category" id="updated_category" value='.$product['category'].'></td>';
             echo '<td id="brand"><input type="text" name="updated_brand" id="updated_brand" value="'.json_encode($product['brand']).'"></td>';
             echo '<td id="color"><input type="text" name="updated_color" id="updated_color" value="'.json_encode($product['color']).'"></td>';
