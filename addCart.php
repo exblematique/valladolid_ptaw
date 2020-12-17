@@ -1,4 +1,5 @@
 <?php
+session_start();
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Check if "id" and "quantity" are not empty and are numbers
