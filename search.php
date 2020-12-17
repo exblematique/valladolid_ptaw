@@ -141,6 +141,7 @@ mysqli_close($link);
         </div>
         <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Búsqueda">
+            <input type="reset" class="btn btn-primary" value="Borrar">
         </div>
     </form>
 
@@ -164,6 +165,7 @@ mysqli_close($link);
         </div>
         <div class="form-group">
             <input type="submit" class="btn btn-primary" value="Búsqueda">
+            <input type="reset" class="btn btn-primary" value="Borrar">
         </div>
     </form>
 
