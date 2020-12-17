@@ -219,11 +219,11 @@ mysqli_close($link);
         </tr>
     <?php }
         echo "</table><p>El precio total es: <b>$totalPrice</b></p>";
-        $date = date("Y-d-m", $dateDeliveryMin);
-        echo "<p>Por favor, elija una fecha de entrega: <input type='date' name='delivery' value='$date' min='$date'></p>";
-        echo "<p>¡Cuidado! La entrega toma dos días de trabajo.</p>";
+        $date = date("Y-m-d", $dateDeliveryMin);
         $thisPage = htmlspecialchars($_SERVER["PHP_SELF"]);
         echo "<form action='$thisPage' method='post'>";
+        echo "<p>Por favor, elija una fecha de entrega: <input type='date' name='delivery' value='$date' min='$date'></p>";
+        echo "<p>¡Cuidado! La entrega toma dos días de trabajo.</p>";
         echo "<button type='submit' class='btn btn-primary'>Haga clic aquí para completar el pedido</button>";
         echo "<div class='form-group has-error'>$date_err</div>";
         echo "</form>";
