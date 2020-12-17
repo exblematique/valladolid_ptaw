@@ -28,8 +28,8 @@ if (isset($_POST["update_client"])&&isset($_POST['updated_name'])&&isset($_POST[
     $req = mysqli_prepare($link, $sql);
     mysqli_stmt_execute($req);
     unset($_POST["update_client"]);
+    mysqli_stmt_close($req);
 }
-mysqli_stmt_close($req);
 mysqli_close($link);
 ?>
 <!doctype html>
