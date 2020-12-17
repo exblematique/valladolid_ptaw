@@ -1,7 +1,12 @@
 <?php
 session_start();
 require_once "config.php";
-$id = $_POST["id"];
+if(isset($_POST["id"])){
+    $id = $_POST["id"];
+    $_SESSION["id_client"] = $id;
+}
+else $id = $_SESSION["id_client"];
+
 $sql = "SELECT id, name, mail, address, postal, city, created_at FROM users WHERE id = ".$id;
 $req = mysqli_prepare($link, $sql);
 mysqli_stmt_execute($req);
@@ -78,7 +83,7 @@ mysqli_close($link);
     <input type="submit" name="update" id="update" value="Update Client's Details" onclick="return confirm('Are you sure you want to update client\'s details ?');">
 </form>
 
-<form>
+<form action="admin.php?action=Clients" method="post">
     <input type="hidden" name="erase" id="erase" value="true"><br/>
     <input type="submit" name="delete" id="delete" value="Delete Client" onclick="return confirm('Warning : Are you sure you want to delete the client ?');">
 </form>
