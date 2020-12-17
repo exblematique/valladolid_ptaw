@@ -5,6 +5,7 @@ session_start();
 $error = "";
 $order = "";
 $debug = true;
+$debugOutput = "";
 
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(!isset($_SESSION["loggedin"]) or $_SESSION["loggedin"] !== true){
@@ -40,10 +41,10 @@ if (!empty($error)) {
                     $sql = "SELECT name, category, brand, color, price, orders_products.quantity FROM products ";
                     $sql .= "INNER JOIN orders_products ON products.id=orders_products.id_product ";
                     $sql .= "WHERE id_order = $orderId";
-                    if ($debug) echo "<br>First SQL command : $sql";
+                    if ($debug) $debugOutput .= "<br>First SQL command : $sql";
                     // Add products in order
                     if ($stmt2 = mysqli_prepare($link, $sql)) {
-                        if($debug) echo "<br>List order";
+                        if($debug) $debugOutput .= "<br>List order";
                         if (mysqli_stmt_execute($stmt2)) {
                             mysqli_stmt_store_result($stmt2);
 
@@ -112,8 +113,8 @@ mysqli_close($link);
     <h2>Cesta</h2>
     <?php
     // Create list of panier
-    var_dump($order);
-    var_dump($error);
+    if ($debug)
+        echo "<p>$debugOutput</p>";
     if (empty($order))
         echo "<p>$error</p>";
     else {
