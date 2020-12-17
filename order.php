@@ -4,7 +4,8 @@ session_start();
 // Define variables
 $error = "";
 $order = "";
-$debug = true;
+$debug = false;
+$debugOutput = "";
 
 // Check if the user is already logged in, if yes then redirect him to welcome page
 if(!isset($_SESSION["loggedin"]) or $_SESSION["loggedin"] !== true){
@@ -14,7 +15,7 @@ if(!isset($_SESSION["loggedin"]) or $_SESSION["loggedin"] !== true){
 
 if (empty($_GET["id"]) or !is_numeric($_GET["id"]))
     $error = "El número de orden es inválido";
-elseif ($orderId = intval($_GET["id"]) <= 0)
+elseif (($orderId = intval($_GET["id"])) <= 0)
     $error = "El número de orden es inválido";
 
 // Include config file
@@ -24,36 +25,43 @@ require_once "config.php";
 $cart = array();
 
 // Check if the order exist and belongs to user
-if (!empty($error)) {
-    $sql = "SELECT id, id_user, created_at, delivery_date FROM orders WHERE id = ?";
+if ($debug) $debugOutput .= "<br>Value of orderId : $orderId";
+if (empty($error)) {
+    $sql = "SELECT id, id_user, created_at, delivery_date FROM orders WHERE id = $orderId";
+    if ($debug) $debugOutput .= "<br>First SQL command : $sql";
 
     if ($stmt = mysqli_prepare($link, $sql)) {
         // Bind variables to the prepared statement as parameters
-        mysqli_stmt_bind_param($stmt, "i", $_GET["id"]);
-        if($debug) echo $sql;
+        //mysqli_stmt_bind_param($stmt, "s", $orderId);
+        if ($debug) $debugOutput .= "<br>Enter to mysqli_prepare";
         if (mysqli_stmt_execute($stmt)) {
             mysqli_stmt_store_result($stmt);
             // Check if there are a result
             if (mysqli_stmt_num_rows($stmt) == 1) {
                 mysqli_stmt_bind_result($stmt, $orderId, $userid, $orderDate, $deliveryDate);
-                if ($userid == $_SESSION['id']){
+                mysqli_stmt_fetch($stmt);
+                $sessionId = $_SESSION['id'];
+                if ($debug) $debugOutput .= "<br>User id : .$userid. and Session id : .$sessionId.";
+                if ($userid == $sessionId){
                     $sql = "SELECT name, category, brand, color, price, orders_products.quantity FROM products ";
                     $sql .= "INNER JOIN orders_products ON products.id=orders_products.id_product ";
                     $sql .= "WHERE id_order = $orderId";
-                    if ($debug) echo "<br>First SQL command : $sql";
+                    if ($debug) $debugOutput .= "<br>Second SQL command : $sql";
                     // Add products in order
                     if ($stmt2 = mysqli_prepare($link, $sql)) {
-                        if($debug) echo "<br>List order";
+                        if($debug) $debugOutput .= "<br>List order";
                         if (mysqli_stmt_execute($stmt2)) {
                             mysqli_stmt_store_result($stmt2);
 
                             // Check if there are a result
                             if (mysqli_stmt_num_rows($stmt2) != 0) {
                                 mysqli_stmt_bind_result($stmt2, $product, $category, $brand, $color, $price, $quantity);
+                                $totalPrice = 0;
                                 while (mysqli_stmt_fetch($stmt2)) {
-                                    $totalPrice = intval($quantity)*intval($price);
-                                    $order .= "<tr><td>$product</td><td>$category</td><td>$brand</td><td>$color</td><td>$price</td><td>$quantity</td><td>$totalPrice</td></tr>";
-                                }
+                                    $totalPriceItem = intval($quantity)*intval($price);
+                                    $totalPrice += $totalPriceItem;
+                                    $order .= "<tr><td>$product</td><td>$category</td><td>$brand</td><td>$color</td><td>$price</td><td>$quantity</td><td>$totalPriceItem</td></tr>";
+                               }
                             }
                             else $error = "La orden no pudo ser recuperada.";
                         }
@@ -102,37 +110,37 @@ mysqli_close($link);
     <a class="btn btn-primary" href="search.php">Buscar</a>
     <a class="btn btn-primary" href="cart.php">Cesta</a>
     <?php // Change the link if user is connected or not
-    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){?>
-        <a class="btn btn-primary" href="logout.php">Cerrar sesión</a>
-    <?php } else {?>
-        <a class="btn btn-primary" href="login.php">Initiar sesión</a>
-    <?php } ?>
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+        echo '<a class="btn btn-primary" href="logout.php">Cerrar sesión</a>';
+        if ($_SESSION["admin"] === true)
+            echo '<a class="btn btn-primary" href="admin.php">Admin Home</a>';
+    } else
+        echo '<a class="btn btn-primary" href="login.php">Initiar sesión</a>';
+    ?>
 </header>
 <div class="wrapper">
     <h2>Cesta</h2>
     <?php
     // Create list of panier
+    if ($debug)
+        echo "<p>$debugOutput</p>";
     if (empty($order))
-    echo $error;
+        echo "<p>$error</p>";
     else {
-    ?>
-    <table class="table">
-        <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">Categoría</th>
-            <th scope="col">Marca</th>
-            <th scope="col">Color</th>
-            <th scope="col">Precio por unidad</th>
-            <th scope="col">Cantidad</th>
-            <th scope="col">Precio total</th>
-        </tr>
-        <?php
+        echo '<table class="table"><tr>';
+        echo '<th scope="col">Nombre</th>';
+        echo '<th scope="col">Categoría</th>';
+        echo '<th scope="col">Marca</th>';
+        echo '<th scope="col">Color</th>';
+        echo '<th scope="col">Precio por unidad</th>';
+        echo '<th scope="col">Cantidad</th>';
+        echo '<th scope="col">Precio total</th></tr>';
         echo $order;
         echo "</table><p>El precio total es: <b>$totalPrice</b></p>";
-        $date = date("Y-m-d");
-        echo "<p>Fecha actual: <input type='date' name='delivery' value='$date' disabled></p>";
-        echo "<p>Fecha de orden: <input type='date' name='delivery' value='$orderDate' disabled></p>";
-        echo "<p>Fecha de entrega: <input type='date' name='delivery' value='$deliveryDate' disabled></p>";
+        $date = date("Y-m-d H:i:s");
+        echo "<p>Fecha actual: <input type='text' name='delivery' value='$date' disabled></p>";
+        echo "<p>Fecha de orden: <input type='text' name='delivery' value='$orderDate' disabled></p>";
+        echo "<p>Fecha de entrega: <input type='text' name='delivery' value='$deliveryDate' disabled></p>";
     }?>
 
 </div>
