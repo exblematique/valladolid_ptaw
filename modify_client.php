@@ -4,6 +4,7 @@ require_once "config.php";
 if(isset($_POST["id"])){
     $id = $_POST["id"];
     $_SESSION["id_client"] = $id;
+    unset($_POST["id"]);
 }
 else $id = $_SESSION["id_client"];
 
