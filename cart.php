@@ -43,7 +43,7 @@ if (!empty($_SESSION["cert"])) {
             echo "¡Uy! Algo salió mal. Por favor, inténtalo de nuevo más tarde.";
         }
     }
-}
+
 
 /*/ Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -97,10 +97,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             mysqli_stmt_close($stmt);
         }
     }
-
+*/
     // Close connection
     mysqli_close($link);
-}*/
+}
 ?>
 
 <!DOCTYPE html>
@@ -109,6 +109,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta charset="UTF-8">
     <title>Inicio</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <style type="text/css">
         body{ font: 14px sans-serif; }
         .wrapper{ width: 350px; padding: 20px; }
@@ -116,8 +117,8 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <script>
         // This function change an item in cart
         // If success reload the page
-        function changeCart(id, newQuantity){
-            $.post("addCart.php", {id: id, quantity: newQuantity}, function (){location.reload(true)});
+        function changeCart(id, addQuantity){
+            $.post("addCart.php", {id: id, quantity: addQuantity}, function (){location.reload(true)});
         }
     </script>
 </head>
