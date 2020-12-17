@@ -8,8 +8,8 @@ if (isset($_POST["erase_product"]) && isset($_SESSION["loggedin"])){
     $req = mysqli_prepare($link, $sql);
     mysqli_stmt_execute($req);
     unset($_POST["erase_product"]);
+    mysqli_stmt_close($req);
 }
-mysqli_stmt_close($req);
 
 // Request details of products to the database and stores it in differents variables
 $sql_search = "SELECT id, name, category, brand, color, price FROM products";
@@ -42,9 +42,9 @@ if (isset($_POST['name'])&&isset($_POST['category'])&&isset($_POST['brand'])&&is
     mysqli_stmt_bind_param($req, "s", $_POST['name'],$_POST['category'],$_POST['brand'],$_POST['color'],$_POST['price']);
     mysqli_stmt_execute($req);
     header('/admin.php?action=Products');
+    mysqli_stmt_close($req);
 }
 
-mysqli_stmt_close($req);
 mysqli_close($link);
 ?>
 
