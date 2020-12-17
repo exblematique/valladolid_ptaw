@@ -35,6 +35,8 @@ mysqli_close($link);
 <!doctype html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css">
     <style>
         table {
             font-family: arial, sans-serif;
@@ -47,9 +49,24 @@ mysqli_close($link);
             text-align: left;
             padding: 8px;
         }
+        body{ font: 14px sans-serif; }
+        header{display: flex;}
     </style>
 </head>
 <body>
+<header>
+    <a class="btn btn-primary" href="index.php">Inicio</a>
+    <a class="btn btn-primary" href="search.php">Buscar</a>
+    <a class="btn btn-primary" href="cart.php">Cesta</a>
+    <?php // Change the link if user is connected or not
+    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+        echo '<a class="btn btn-primary" href="logout.php">Cerrar sesión</a>';
+        if ($_SESSION["admin"] === true)
+            echo '<a class="btn btn-primary" href="admin.php">Admin Home</a>';
+    } else
+        echo '<a class="btn btn-primary" href="login.php">Initiar sesión</a>';
+    ?>
+</header>
 <h1>Product's details : </h1>
 <p>Notice : You can edit the details in the table and confirm it by submitting them with the Update button.</p>
 <form action="modify_product.php" method="post">
