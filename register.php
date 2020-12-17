@@ -3,8 +3,8 @@
 require_once "config.php";
 
 // Define variables and initialize with empty values
-$mail = $password = $confirm_password = $address = $postal = $city = "";
-$mail_err = $password_err = $confirm_password_err = $address_err = $postal_err = $city_err = "";
+$name = $mail = $password = $confirm_password = $address = $postal = $city = "";
+$name_err = $mail_err = $password_err = $confirm_password_err = $address_err = $postal_err = $city_err = "";
 
 // Processing form data when form is submitted
 if($_SERVER["REQUEST_METHOD"] == "POST"){
@@ -45,6 +45,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
             mysqli_stmt_close($stmt);
         }
     }
+
+    // Validate password
+    if(empty(trim($_POST["name"])))
+        $name_err = "Por favor, introduzca un apellido y un nombre.";
+    else
+        $name = trim($_POST["name"]);
 
     // Validate password
     if(empty(trim($_POST["password"]))){
@@ -93,13 +99,14 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     if(empty($mail_err) && empty($password_err) && empty($confirm_password_err) && empty($address_err) && empty($postal_err) && empty($city_err)){
 
         // Prepare an insert statement
-        $sql = "INSERT INTO users (mail, password, address, postal, city) VALUES (?, ?, ?, ?, ?)";
+        $sql = "INSERT INTO users (name, mail, password, address, postal, city) VALUES (?, ?, ?, ?, ?)";
 
         if($stmt = mysqli_prepare($link, $sql)){
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sssss", $param_mail, $param_password, $param_address, $param_postal, $param_city);
+            mysqli_stmt_bind_param($stmt, "ssssss", $param_name,$param_mail, $param_password, $param_address, $param_postal, $param_city);
 
             // Set parameters
+            $param_name = $name;
             $param_mail = $mail;
             $param_password = password_hash($password, PASSWORD_DEFAULT); // Creates a password hash
             $param_address = $address;
@@ -151,6 +158,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     <h2>Inscríbete</h2>
     <p>Por favor, rellene este formulario para crear una cuenta.</p>
     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <div class="form-group <?php echo (!empty($name_err)) ? 'has-error' : ''; ?>">
+            <label>Apellido y nombre</label>
+            <input type="text" name="name" class="form-control" value="<?php echo $name; ?>">
+            <span class="help-block"><?php echo $name_err; ?></span>
+        </div>
         <div class="form-group <?php echo (!empty($mail_err)) ? 'has-error' : ''; ?>">
             <label>Dirección de correo</label>
             <input type="text" name="mail" class="form-control" value="<?php echo $mail; ?>">
