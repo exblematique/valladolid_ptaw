@@ -9,6 +9,12 @@ catch (Exception $e) {echo "something went wrong : ",  $e->getMessage(), "\n";}
 $products = $stmt_search;
 mysqli_stmt_fetch ($products);
 echo $col1.$col2;
+$id = array();
+$name = array();
+$category = array();
+$brand = array();
+$color = array();
+$price = array();
 for ($i=0; $i<mysqli_stmt_num_rows($products); $i++) {
     $id[$i] = $col1;
     $name[$i] = $col2;
