@@ -46,7 +46,7 @@ if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&iss
         <select name="clients" id="list_clients">
             <option value="">--Select a client in the list--</option>
         </select>
-        <p> OU </p>
+        <p> Or : </p>
         <button id="create_client">Create a new client</button>
         <p id="detail_client"></p>
         <br/>

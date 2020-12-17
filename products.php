@@ -15,7 +15,6 @@ $color = array();
 $price = array();
 $i=0;
 while (mysqli_stmt_fetch ($stmt_search)){
-    echo $col1;
     $id[$i] = $col1;
     $name[$i] = $col2;
     $category[$i] = $col3;
@@ -55,7 +54,7 @@ if (isset($_POST['name'])&&isset($_POST['category'])&&isset($_POST['brand'])&&is
 <select name="products" id="list_products">
     <option value="">--Select a product in the list--</option>
 </select>
-<p> OU </p>
+<p> Or :</p>
 <button id="create_product">Create a new product</button>
 <p id="detail_product"></p>
 <br/>
