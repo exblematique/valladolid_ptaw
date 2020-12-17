@@ -18,15 +18,14 @@ session_start();
     <a class="btn btn-primary" href="search.php">Buscar</a>
     <a class="btn btn-primary" href="cart.php">Cesta</a>
     <?php // Change the link if user is connected or not
-    if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){?>
-        <a class="btn btn-primary" href="logout.php">Cerrar sesión</a>
-    <?php
-        if (isset($_SESSION["loggedin"]) && $_SESSION["admin"] === true){?>
-            <a class="btn btn-primary" href="admin.php">Admin Home</a>
-    <?php}
-    } else {?>
-        <a class="btn btn-primary" href="login.php">Initiar sesión</a>
-    <?php }?>
+        if(isset($_SESSION["loggedin"]) && $_SESSION["loggedin"] === true){
+            echo '<a class="btn btn-primary" href="logout.php">Cerrar sesión</a>';
+            if ($_SESSION["admin"] === true)
+                echo '<a class="btn btn-primary" href="admin.php">Admin Home</a>';
+        } else {
+            echo '<a class="btn btn-primary" href="login.php">Initiar sesión</a>';
+        }
+    ?>
 </header>
 <p>Bienvenido a nuestro nuevo sitio web de comercio electrónico.</p>
 <p>No dudes en ir a las diferentes pestañas en la parte superior de la página.</p>
