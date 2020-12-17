@@ -23,7 +23,6 @@ $product['price']=$col6;
 mysqli_stmt_close($req);
 // Update Product's details
 if (isset($_POST["update_product"])&&isset($_POST['updated_name'])&&isset($_POST['updated_category'])&&isset($_POST['updated_brand'])&&isset($_POST['updated_color'])&&isset($_POST['updated_price']) && isset($_SESSION["loggedin"])){
-    echo "UPDATE products SET name = '".$_POST['updated_name']."', category = '".$_POST['updated_category']."', brand = '".$_POST['updated_brand']."', color = '".$_POST['updated_color']."', price = ".$_POST['updated_price']." WHERE id = ".$id;
     $sql = "UPDATE products SET name = '".$_POST['updated_name']."', category = '".$_POST['updated_category']."', brand = '".$_POST['updated_brand']."', color = '".$_POST['updated_color']."', price = ".$_POST['updated_price']." WHERE id = ".$id;
     $req = mysqli_prepare($link, $sql);
     mysqli_stmt_execute($req);
@@ -75,12 +74,12 @@ mysqli_close($link);
             <th>Price : <?php echo json_encode($product['price']) ?></th>
         </tr>
         <tr>
-            <?php echo '<td id="id">'.json_encode($product["id"]).' ?></td>';
-            echo '<td id="name"><input type="text" name="updated_name" id="updated_name" value='.$product['name'].'></td>';
-            echo '<td id="category"><input type="text" name="updated_category" id="updated_category" value='.$product['category'].'></td>';
-            echo '<td id="brand"><input type="text" name="updated_brand" id="updated_brand" value='.$product['brand'].'></td>';
-            echo '<td id="color"><input type="text" name="updated_color" id="updated_color" value='.$product['color'].'></td>';
-            echo '<td id="price"><input type="text" name="updated_price" id="updated_price" value='.$product['price'].'></td>';?>
+            <?php echo '<td id="id">'.json_encode($product["id"]).'</td>';
+            echo '<td id="name"><input type="text" name="updated_name" id="updated_name" value='.json_encode($product['name']).'></td>';
+            echo '<td id="category"><input type="text" name="updated_category" id="updated_category" value='.json_encode($product['category']).'></td>';
+            echo '<td id="brand"><input type="text" name="updated_brand" id="updated_brand" value='.json_encode($product['brand']).'></td>';
+            echo '<td id="color"><input type="text" name="updated_color" id="updated_color" value='.json_encode($product['color']).'></td>';
+            echo '<td id="price"><input type="text" name="updated_price" id="updated_price" value='.json_encode($product['price']).'></td>';?>
         </tr>
     </table>
     <input type="hidden" name="update_product" id="update_product" value="true"><br/>
