@@ -75,8 +75,9 @@ if ($stmt = mysqli_prepare($link, $sql)) {
     }
     else
         echo "¡Uy! Algo salió mal. Por favor, inténtalo de nuevo más tarde.";
+    mysqli_stmt_close($stmt);
 }
-mysqli_stmt_close($stmt);
+
 
 
 
@@ -129,15 +130,15 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
                             }
                             else
                                 echo "¡Uy! Algo salió mal. Por favor, inténtalo de nuevo más tarde.";
+                            mysqli_stmt_close($stmt2);
                         }
-                        mysqli_stmt_close($stmt2);
+
                     }
                 }
-            } else {
+            } else
                 echo "¡Uy! Algo salió mal. Por favor, inténtalo de nuevo más tarde.";
-            }
+            mysqli_stmt_close($stmt);
         }
-        mysqli_stmt_close($stmt);
     }
 }
 // Close connection
@@ -217,7 +218,8 @@ mysqli_close($link);
         </tr>
     <?php }
         echo "</table><p>El precio total es: <b>$totalPrice</b></p>";
-        echo "<p>Por favor, elija una fecha de entrega: <input type='dateDeliveryMin' name='delivery' value='$dateDeliveryMin' min='$dateDeliveryMin'>¡Cuidado! La entrega toma dos días de trabajo.</p>";
+        echo "<p>Por favor, elija una fecha de entrega: <input type='date' name='delivery' value='$dateDeliveryMin' min='$dateDeliveryMin'></p>";
+        echo "<p>¡Cuidado! La entrega toma dos días de trabajo.</p>";
         $thisPage = htmlspecialchars($_SERVER["PHP_SELF"]);
         echo "<form action='$thisPage' method='post'>";
         echo "<button type='submit' class='btn btn-primary'>Haga clic aquí para completar el pedido</button>";
