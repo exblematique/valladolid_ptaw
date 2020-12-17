@@ -250,6 +250,7 @@ mysqli_close($link);
             <th scope="col">Número de orden</th>
             <th scope="col">Fecha de la orden</th>
             <th scope="col">Fecha de entrega</th>
+            <th scope="col">Vea el orden</th>
         </tr>
         <?php if (!empty($previousOrder)) echo $previousOrder; ?>
     </table>
