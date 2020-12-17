@@ -138,6 +138,7 @@ if (isset($_POST['name'])&&isset($_POST['category'])&&isset($_POST['brand'])&&is
         form.appendChild(brand);
         form.appendChild(color);
         form.appendChild(price);
+        form.appendChild(validate);
         detail.appendChild(form);
 
     }

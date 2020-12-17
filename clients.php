@@ -136,6 +136,7 @@ if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&iss
             form.appendChild(address);
             form.appendChild(postal);
             form.appendChild(city);
+            form.appendChild(validate);
             detail.appendChild(form);
 
         }
