@@ -37,12 +37,12 @@ if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&iss
     mysqli_stmt_bind_param($req, "ssssss",$param_name, $param_mail, $param_password, $param_address, $param_postal, $param_city);
 
     // Set parameters
-    $param_name = $_POST['name'];
-    $param_mail = $_POST['mail'];
-    $param_password = password_hash($_POST['password'], PASSWORD_DEFAULT); // Creates a password hash
-    $param_address = $_POST['address'];
-    $param_postal = $_POST['postal'];
-    $param_city = $_POST['city'];
+    $param_name = trim($_POST['name']);
+    $param_mail = trim($_POST['mail']);
+    $param_password = password_hash(trim($_POST['password']), PASSWORD_DEFAULT); // Creates a password hash
+    $param_address = trim($_POST['address']);
+    $param_postal = trim($_POST['postal']);
+    $param_city = trim($_POST['city']);
 
     mysqli_stmt_execute($req);
 
