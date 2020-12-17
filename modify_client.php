@@ -5,14 +5,15 @@ $id = $_POST["id"];
 $sql = "SELECT id, name, mail, address, postal, city, created_at FROM users WHERE id = ".$id;
 $req = mysqli_prepare($link, $sql);
 mysqli_stmt_execute($req);
-mysqli_stmt_bind_result($req, $col1,$col2,$col3,$col4,$col5,$col6);
+mysqli_stmt_bind_result($req, $col1,$col2,$col3,$col4,$col5,$col6,$col7);
 mysqli_stmt_fetch ($req);
 $client['id']=$col1;
 $client['name']=$col2;
-$client['category']=$col3;
-$client['brand']=$col4;
-$client['color']=$col5;
-$client['price']=$col6;
+$client['mail']=$col3;
+$client['address']=$col4;
+$client['postal']=$col5;
+$client['city']=$col6;
+$client['created_at']=$col7;
 
 // Delete a user
 if (isset($_POST["erase"]) && isset($_SESSION["loggedin"])){
