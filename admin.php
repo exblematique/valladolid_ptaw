@@ -12,9 +12,9 @@ switch($action)
         <?php break;
     }
     case 'Clients' :
-    {include("Clients.php");break;}
+    {include("clients.php");break;}
     case 'Products' :
-    {include("Products.php");break;}
+    {include("products.php");break;}
 }
 ?>
 
