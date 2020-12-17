@@ -23,16 +23,18 @@ while (mysqli_stmt_fetch ($stmt_search)){
     $price[$i] = $col6;
     $i++;
 }
-mysqli_stmt_close($stmt_search);
-mysqli_close($link);
+
 // If a product has been added, send the details to the database
 if (isset($_POST['name'])&&isset($_POST['category'])&&isset($_POST['brand'])&&isset($_POST['color'])&&isset($_POST['price'])){
-    $req = $link->prepare('INSERT INTO products(name,category,brand,color,price) VALUES(?,?,?,?,?)');
-    $req->execute(array($_POST['name'],$_POST['category'],$_POST['brand'],$_POST['color'],$_POST['price']));
-
+    $sql = 'INSERT INTO products(name,category,brand,color,price) VALUES (?,?,?,?,?)';
+    $req = mysqli_prepare($link, $sql);
+    mysqli_stmt_bind_param($req, "s", $_POST['name'],$_POST['category'],$_POST['brand'],$_POST['color'],$_POST['price']);
+    mysqli_stmt_execute($req);
     header('/admin.php?action=Products');
 }
 
+mysqli_stmt_close($stmt_search);
+mysqli_close($link);
 ?>
 
 <!doctype html>

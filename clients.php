@@ -19,9 +19,10 @@ while (mysqli_stmt_fetch ($stmt_search)) {
     }
 // If a client has been added, send the details to the database
 if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&isset($_POST['address'])&&isset($_POST['postal'])&&isset($_POST['city'])){
-    $req = $link->prepare('INSERT INTO users(name,mail,password,address,postal,city) VALUES(?,?,?,?,?,?)');
-    $req->execute(array($_POST['name'],$_POST['mail'],password_hash($_POST['password'], PASSWORD_DEFAULT),$_POST['address'],$_POST['postal'],$_POST['city']));
-
+    $sql = 'INSERT INTO users(name,mail,password,address,postal,city) VALUES (?,?,?,?,?,?)';
+    $req = mysqli_prepare($link, $sql);
+    mysqli_stmt_bind_param($req, "s", $_POST['name'],$_POST['mail'],password_hash($_POST['password'], PASSWORD_DEFAULT),$_POST['address'],$_POST['postal'],$_POST['city']);
+    mysqli_stmt_execute($req);
     header('/admin.php?action=Clients');
 }
 

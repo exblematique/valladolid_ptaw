@@ -2,22 +2,35 @@
 session_start();
 require_once "config.php";
 $id = $_POST["id"];
-$req = $link->prepare("SELECT id, name, category, brand, color, price FROM products WHERE id = ".$id);
-$product = $req->execute();
+$sql = "SELECT id, name, category, brand, color, price FROM products WHERE id = ".$id;
+$req = mysqli_prepare($link, $sql);
+mysqli_stmt_execute($req);
+mysqli_stmt_bind_result($req, $col1,$col2,$col3,$col4,$col5,$col6);
+mysqli_stmt_fetch ($req);
+$product['id']=$col1;
+$product['name']=$col2;
+$product['category']=$col3;
+$product['brand']=$col4;
+$product['color']=$col5;
+$product['price']=$col6;
 
 // Delete a product
 if (isset($_POST["erase"]) && isset($_SESSION["loggedin"])){
-    $req = $link->prepare("DELETE FROM products WHERE id = ".$id);
-    $req->execute();
+    $sql = "DELETE FROM products WHERE id = ".$id;
+    $req = mysqli_prepare($link, $sql);
+    mysqli_stmt_execute($req);
     unset($_POST["erase"]);
 }
 
 // Update Product's details
 if (isset($_POST["update_product"])&&isset($_POST['updated_name'])&&isset($_POST['updated_category'])&&isset($_POST['updated_brand'])&&isset($_POST['updated_color'])&&isset($_POST['updated_price']) && isset($_SESSION["loggedin"])){
-    $req = $link->prepare("UPDATE products SET name = ".$_POST['updated_name'].", category = ".$_POST['updated_category'].", brand = ".$_POST['updated_brand'].", color = ".$_POST['updated_color'].", price = ".$_POST['updated_price']." WHERE id = ".$id);
-    $req->execute();
+    $sql = "UPDATE products SET name = ".$_POST['updated_name'].", category = ".$_POST['updated_category'].", brand = ".$_POST['updated_brand'].", color = ".$_POST['updated_color'].", price = ".$_POST['updated_price']." WHERE id = ".$id;
+    $req = mysqli_prepare($link, $sql);
+    mysqli_stmt_execute($req);
     unset($_POST["update_product"]);
 }
+mysqli_stmt_close($req);
+mysqli_close($link);
 ?>
 <!doctype html>
 <html>
