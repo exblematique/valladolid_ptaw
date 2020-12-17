@@ -11,7 +11,8 @@ require_once "config.php";
 
 // Define variables
 $date_err = "";
-$debug = true;
+$debug = false;
+
 // Calcul dateDeliveryMin with remove saturday, sunday and add 2 days;
 $currentDay = getdate()['wday'];
 // If sunday add 3 days
@@ -62,7 +63,7 @@ if (!empty($_SESSION["cart"])) {
 // List of previous delivery
 $idUser = $_SESSION["id"];
 $previousOrder = "";
-$sql = "SELECT id, delivery_date FROM orders WHERE id_user = $idUser";
+$sql = "SELECT id, created_at, delivery_date FROM orders WHERE id_user = $idUser";
 if ($debug) echo "First SQL command : $sql";
 // Add products in order
 if ($stmt = mysqli_prepare($link, $sql)) {
@@ -71,9 +72,9 @@ if ($stmt = mysqli_prepare($link, $sql)) {
 
         // Check if there are a result
         if (mysqli_stmt_num_rows($stmt) != 0) {
-            mysqli_stmt_bind_result($stmt, $orderNb, $deliveryDate);
+            mysqli_stmt_bind_result($stmt, $orderNb, $orderDate,$deliveryDate);
             while (mysqli_stmt_fetch($stmt))
-                $previousOrder .= "<tr><td>$orderNb</td><td>$deliveryDate</td></tr>";
+                $previousOrder .= "<tr><td>$orderNb</td><td>$orderDate</td><td>$deliveryDate</td><td><button onclick=\"window.location.href='order.php?id=$orderNb'\">Vea el orden</button></td></tr>";
         }
     }
     else
@@ -247,7 +248,9 @@ mysqli_close($link);
     <table class="table">
         <tr>
             <th scope="col">Número de orden</th>
+            <th scope="col">Fecha de la orden</th>
             <th scope="col">Fecha de entrega</th>
+            <th scope="col">Vea el orden</th>
         </tr>
         <?php if (!empty($previousOrder)) echo $previousOrder; ?>
     </table>
