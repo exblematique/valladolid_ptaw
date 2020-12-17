@@ -1,4 +1,6 @@
 <?php
+session_start();
+require_once "config.php";
 $id = $_POST["id"];
 $req = $link->prepare("SELECT id, name, category, brand, color, price FROM products WHERE id = ".$id);
 $product = $req->execute();

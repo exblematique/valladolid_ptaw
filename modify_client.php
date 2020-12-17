@@ -1,4 +1,6 @@
 <?php
+session_start();
+require_once "config.php";
 $id = $_POST["id"];
 $req = $link->prepare("SELECT id, name, mail, address, postal, city, created_at FROM users WHERE id = ".$id);
 $client = $req->execute();
