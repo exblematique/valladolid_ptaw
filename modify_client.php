@@ -21,6 +21,7 @@ $client['postal']=$col5;
 $client['city']=$col6;
 $client['created_at']=$col7;
 
+mysqli_stmt_close($req);
 // Update Client's details
 if (isset($_POST["update_client"])&&isset($_POST['updated_name'])&&isset($_POST['updated_mail'])&&isset($_POST['updated_password'])&&isset($_POST['updated_address'])&&isset($_POST['updated_postal'])&&isset($_POST['updated_city']) && isset($_SESSION["loggedin"])){
     $sql = "UPDATE users SET name = '".$_POST['updated_name']."', mail = '".$_POST['updated_mail']."', address = '".$_POST['updated_address']."', postal = '".$_POST['updated_postal']."', city = '".$_POST['updated_city']."' WHERE id = ".$id;
