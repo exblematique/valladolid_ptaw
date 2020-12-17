@@ -2,7 +2,7 @@
 // Request details to the database and stores it in differents variables
     $sql_search = "SELECT id, name, mail, address, postal, city, created_at FROM users";
     $stmt_search = mysqli_prepare($link, $sql_search);
-    try { mysqli_stmt_execute($stmt_search); mysqli_stmt_store_result($stmt_search);}
+    try { mysqli_stmt_execute($stmt_search); mysqli_stmt_bind_result($stmt_search);}
     catch (Exception $e) {echo "something went wrong : ",  $e->getMessage(), "\n";}
     $users = $stmt_search;
     mysqli_stmt_fetch ($users);
