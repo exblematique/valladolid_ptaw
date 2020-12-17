@@ -57,11 +57,11 @@ mysqli_close($link);
 <table>
     <tr>
         <th>ID</th>
-        <th>Name</th>
-        <th>Mail</th>
-        <th>Address</th>
-        <th>Postal</th>
-        <th>City</th>
+        <th>Name : <?php echo json_encode($client['name']) ?></th>
+        <th>Mail : <?php echo json_encode($client['mail']) ?></th>
+        <th>Address : <?php echo json_encode($client['address']) ?></th>
+        <th>Postal : <?php echo json_encode($client['postal']) ?></th>
+        <th>City : <?php echo json_encode($client['city']) ?></th>
         <th>Created at</th>
     </tr>
     <tr>
