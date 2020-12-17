@@ -1,7 +1,7 @@
 <?php
 $id = $_POST["id"];
-$req = $link->prepare("SELECT id, name, mail, address, postal, city, created_at FROM users WHERE id = (?)");
-$client = $req->execute(array($id));
+$req = $link->prepare("SELECT id, name, mail, address, postal, city, created_at FROM users WHERE id = ".$id);
+$client = $req->execute();
 
 // Delete a user
 if (isset($_POST["erase"]) && isset($_SESSION["loggedin"])){
