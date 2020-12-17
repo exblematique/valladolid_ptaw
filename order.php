@@ -25,12 +25,15 @@ require_once "config.php";
 $cart = array();
 
 // Check if the order exist and belongs to user
+if ($debug) $debugOutput .= "<br>Value of orderId : $orderId";
 if (!empty($error)) {
     $sql = "SELECT id, id_user, created_at, delivery_date FROM orders WHERE id = $orderId";
+    if ($debug) $debugOutput .= "<br>First SQL command : $sql";
 
     if ($stmt = mysqli_prepare($link, $sql)) {
         // Bind variables to the prepared statement as parameters
         //mysqli_stmt_bind_param($stmt, "s", $orderId);
+        if ($debug) $debugOutput .= "<br>Enter to mysqli_prepare";
 
         if (mysqli_stmt_execute($stmt)) {
             mysqli_stmt_store_result($stmt);
@@ -41,7 +44,7 @@ if (!empty($error)) {
                     $sql = "SELECT name, category, brand, color, price, orders_products.quantity FROM products ";
                     $sql .= "INNER JOIN orders_products ON products.id=orders_products.id_product ";
                     $sql .= "WHERE id_order = $orderId";
-                    if ($debug) $debugOutput .= "<br>First SQL command : $sql";
+                    if ($debug) $debugOutput .= "<br>Second SQL command : $sql";
                     // Add products in order
                     if ($stmt2 = mysqli_prepare($link, $sql)) {
                         if($debug) $debugOutput .= "<br>List order";
