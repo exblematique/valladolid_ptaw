@@ -9,6 +9,7 @@ if (isset($_POST["erase_client"]) && isset($_SESSION["loggedin"])){
     mysqli_stmt_execute($req);
     unset($_POST["erase_client"]);
 }
+mysqli_stmt_close($req);
 
 // Request details to the database and stores it in differents variables
     $sql_search = "SELECT id, name, mail, address, postal, city, created_at FROM users";
@@ -17,15 +18,17 @@ if (isset($_POST["erase_client"]) && isset($_SESSION["loggedin"])){
     catch (Exception $e) {echo "something went wrong : ",  $e->getMessage(), "\n";}
     $i=0;
 while (mysqli_stmt_fetch ($stmt_search)) {
-        $id[$i] = $col1;
-        $name[$i] = $col2;
-        $mail[$i] = $col3;
-        $address[$i] = $col4;
-        $postal[$i] = $col5;
-        $city[$i] = $col6;
-        $created_at[$i] = $col7;
-        $i++;
-    }
+    $id[$i] = $col1;
+    $name[$i] = $col2;
+    $mail[$i] = $col3;
+    $address[$i] = $col4;
+    $postal[$i] = $col5;
+    $city[$i] = $col6;
+    $created_at[$i] = $col7;
+    $i++;
+}
+mysqli_stmt_close($stmt_search);
+
 // If a client has been added, send the details to the database
 if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&isset($_POST['address'])&&isset($_POST['postal'])&&isset($_POST['city'])){
     $sql = 'INSERT INTO users(name,mail,password,address,postal,city) VALUES (?,?,?,?,?,?)';
@@ -34,6 +37,7 @@ if (isset($_POST['name'])&&isset($_POST['mail'])&&isset($_POST['password'])&&iss
     mysqli_stmt_execute($req);
     header('/admin.php?action=Clients');
 }
+mysqli_stmt_close($req);
 
 ?>
 

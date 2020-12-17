@@ -9,6 +9,7 @@ if (isset($_POST["erase_product"]) && isset($_SESSION["loggedin"])){
     mysqli_stmt_execute($req);
     unset($_POST["erase_product"]);
 }
+mysqli_stmt_close($req);
 
 // Request details of products to the database and stores it in differents variables
 $sql_search = "SELECT id, name, category, brand, color, price FROM products";
@@ -32,6 +33,7 @@ while (mysqli_stmt_fetch ($stmt_search)){
     $price[$i] = $col6;
     $i++;
 }
+mysqli_stmt_close($stmt_search);
 
 // If a product has been added, send the details to the database
 if (isset($_POST['name'])&&isset($_POST['category'])&&isset($_POST['brand'])&&isset($_POST['color'])&&isset($_POST['price'])){
@@ -42,7 +44,7 @@ if (isset($_POST['name'])&&isset($_POST['category'])&&isset($_POST['brand'])&&is
     header('/admin.php?action=Products');
 }
 
-mysqli_stmt_close($stmt_search);
+mysqli_stmt_close($req);
 mysqli_close($link);
 ?>
 
